@@ -5,7 +5,7 @@ class ResponsablePavillon extends Personne
         private string $password;
         public function __construct()
         {
-            
+            $this->role="ROLE_RESPONSABLE";
         }
         /**
          * Get the value of password
@@ -29,5 +29,9 @@ class ResponsablePavillon extends Personne
                 $this->password = $password;
 
                 return $this;
+        }
+        public function affiche(): string
+        {
+            return parent::affiche().' '.$this->getPassword();
         }
 }

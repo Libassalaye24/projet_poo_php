@@ -31,4 +31,8 @@ class EtudiantBoursier extends Etudiant
 
         return $this;
     }
+    public function affiche(): string
+    {
+        return parent::affiche().' '.$this->getBourse();
+    }
 }

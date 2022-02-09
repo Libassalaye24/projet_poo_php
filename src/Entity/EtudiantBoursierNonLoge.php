@@ -31,4 +31,8 @@ class EtudiantBoursierNonLoge extends EtudiantBoursier
 
         return $this;
     }
+    public function affiche(): string
+    {
+        return parent::affiche().' '.$this->getType();
+    }
 }

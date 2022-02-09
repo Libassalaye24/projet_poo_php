@@ -7,8 +7,8 @@ class Personne
     protected string $prenom;
     protected string $email;
     protected int $telephone;
+    protected string $role="ROLE_PERSONNE";
 //ManyToOne
-  //  private string $chambre;
   //
     public function __construct()
     {
@@ -135,5 +135,9 @@ class Personne
         $this->telephone = $telephone;
 
         return $this;
+    }
+    function affiche():string
+    {
+        return $this->getId().' '.$this->getNom().' '.$this->getPrenom().' '.$this->getEmail().' '.$this->getTelephone();
     }
 }

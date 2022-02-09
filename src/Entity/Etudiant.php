@@ -10,7 +10,7 @@ class Etudiant extends Personne
     
     public function __construct()
     {
-        
+        $this->role="ROLE_ETUDIANT";
     }
 
 
@@ -60,5 +60,9 @@ class Etudiant extends Personne
         $this->dateNaissance = $dateNaissance;
 
         return $this;
+    }
+    public function affiche(): string
+    {
+       return parent::affiche().' '.$this->getMatricule().' '.$this->getDateNaissance();
     }
 }
