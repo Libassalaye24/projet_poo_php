@@ -12,7 +12,7 @@ class Chambre {
     private string $pavillon;
     //
     //OneToMany
-    private ArrayCollection $personnes;
+    private ArrayCollection $etudiantBoursierloge;
     //
     public function __construct()
     {

@@ -3,7 +3,10 @@ namespace App\Entity;
 class EtudiantNonBoursier extends Etudiant
 {
     private string $adresse;
-
+    public function __construct()
+    {
+        
+    }
     /**
      * Get the value of adresse
      *
