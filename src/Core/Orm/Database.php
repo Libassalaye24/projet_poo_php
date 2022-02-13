@@ -3,6 +3,8 @@ namespace App\Core\Orm;
 
 use PDO;
 use PDOException;
+use stdClass;
+
 //use App\config\Constantes;
 class Database{
     private PDO|null $pdo=null;
@@ -37,21 +39,26 @@ class Database{
         $this->pdo=null;
     }
 
-    public function executeSelect(string $sql,array $data=null,$single=false):array
+    public function executeSelect(string $sql,array $data=null,$single=false):array|stdClass|bool
     {
         $stm=$this->pdo->prepare($sql);
         if (is_null($data)) {
-            $stm->execute($data);
+            $stm->execute();
         }
-        $stm->execute();
+        $stm->execute($data);
 
         return $single ? $stm->fetch(PDO::FETCH_OBJ) : $stm->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function executeUpdate(string $sql,array $data):int
     {
+        //var_dump($data);
+      //  var_dump($data['tuteur']);
+       //  die;
         $stm=$this->pdo->prepare($sql);
         $stm->execute(array_values($data));
+       /*  var_dump($stm);
+        die; */
         if (!strpos(strtolower($sql),strtolower("insert"))) {
            return $this->pdo->lastInsertId();
         }

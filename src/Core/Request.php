@@ -12,7 +12,10 @@
 //recuperr le controlleur et l'action
       public function getUrl():array|string{
         $url=$this->formatUrl();
-        return [$url[0],$url[1]];
+        return [
+                isset($url[0])?$url[0]:"",
+                isset($url[1])?$url[1]:""
+              ];
       }
       public function isPost():bool{
         return $_SERVER['REQUEST_METHOD']=='POST';
@@ -25,7 +28,7 @@
         $url=$this->formatUrl();
         //supprime le controlleur et l'action
         unset($url[0]);
-        unset($url[0]);
+        unset($url[1]);
         return array_values($url);
       }
       //recuperer les valeurs du post

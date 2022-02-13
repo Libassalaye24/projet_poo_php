@@ -8,14 +8,17 @@ class PavillonRepository extends AbstractRepository
 
     public function __construct()
     {
-        $this->tableName="";
-        $this->primaryKey="";
+        $this->tableName="pavillon";
+        $this->primaryKey="id_pavillon";
         parent::__construct();
     }
-    public function findAll(): array
+    public function findAll($start=null,$num_page=null): array
     {
-        $sql="select * from $this->tableName where role like ?";
-        return $this->database->executeSelect($sql,[$this->role]);
+        $sql="select * from $this->tableName";
+        if (!is_null($start) && !is_null($num_page)) {
+            $sql.=" limit $start,$num_page";
+        }
+        return $this->database->executeSelect($sql);
     }
     public function findById(int $id): array
     {

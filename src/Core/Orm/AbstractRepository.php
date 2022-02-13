@@ -17,7 +17,7 @@ class AbstractRepository extends AbstractObject implements RepositoryInterface
         $sql="select * from $this->tableName where $this->primaryKey=?";
         return $this->database->executeSelect($sql,[$id]);
     }
-   public function findBy(string $sql,array $data,$single=false):array
+   public function findBy(string $sql,array $data,$single=false):array|object|bool
     {
         return $this->database->executeSelect($sql,$data,$single);
 
