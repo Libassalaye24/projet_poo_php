@@ -4,7 +4,9 @@ namespace App\Controllers;
 use App\Core\AbstractController;
 use App\Core\Request;
 use App\Core\Session;
+use App\Manager\ChambreManager;
 use App\Manager\PavillonManager;
+use App\Repository\ChambreRepository;
 use App\Repository\PavillonRepository;
 
 class PavillonController extends AbstractController
@@ -12,35 +14,27 @@ class PavillonController extends AbstractController
     private PavillonRepository $pavillon;
     private Request $request;
     private PavillonManager $upPavillon;
+    private ChambreRepository $chambreRepository;
+    private ChambreManager $chambreManager;
     public function __construct()
     {
         parent::__construct();
         $this->pavillon=new PavillonRepository;
         $this->request=new Request;
         $this->upPavillon=new PavillonManager;
+        $this->chambreRepository=new ChambreRepository;
+        $this->chambreManager=new ChambreManager;
     }
     public function showPavillon()
     {
             $pavillons=$this->pavillon->findAll();
-          /*   $nbrPage=5;
-            $total_records=count($pavillons);
-            $total_page=$this->validator->totalPage($total_records,$nbrPage);
-            $get=$this->request->query();
-            if (isset($get)) {
-              $page=$get;
-            }else {
-              $page=1;
-            }
-            $suivant=$precedent=0;
-            $suivant=$page+1;
-            $precedent=$page-1;
-            $start_from=$this->validator->startFrom($page,$nbrPage); */
             $this->render("pavillon/liste.pavillon.html.php",['pavillons'=>$pavillons]);
         
     }
     public function showAddPavillon()
     {
-        $this->render("pavillon/add.pavillon.html.php");
+        $chambres=$this->chambreRepository->findChambrePavillonNull();
+        $this->render("pavillon/add.pavillon.html.php",['chambres'=>$chambres]);
         
     }
     public function showUpdatePavillon()
@@ -55,11 +49,35 @@ class PavillonController extends AbstractController
         $arrayErrors=[];
         if ($this->request->isPost()) {
             extract($this->request->request());
-            $this->validator->isVide($nom_pavillon,'nom_pavillon');
-            $this->validator->isVide($nbr_etage,'nbr_etage');
+            $this->validator->validString($nom_pavillon,'nom_pavillon');
+            $this->validator->validNbr($nbr_etage,'nbr_etage');
             if ($this->validator->valid()) {
                $post = $this->request->request();
-                if (!empty($post['idPavillon'])) {
+               if (isset($post['ok'])) {
+                   Session::setSession('ok',$post);
+                   $this->redirect("pavillon/showAddPavillon");
+                //  var_dump(Session::getSession('ok')); die;
+               }elseif (isset($post['btn_valider'])) {
+               // var_dump($post); die;
+                $chambres=$this->chambreRepository->findChambrePavillonNull();
+                $i=0;
+                $num_pavillon=uniqid();
+                $id_pavillon = $this->upPavillon->insert([$nom_pavillon,$num_pavillon,$nbr_etage]);
+                Session::setSession('successInsert',['Pavillon ajouter avec succes']);
+               
+                foreach ($chambres as $chambre) {
+                    $i++;
+                    if (isset($post['chambre'.$i])) {
+                       // var_dump($post); die;
+
+                        $this->chambreManager->updateIdPavillon([$id_pavillon,(int)$post['chambre'.$i]]);
+
+                    }
+                }
+                $this->redirect("pavillon/showAddPavillon");
+                   
+               }
+               /*  if (!empty($post['idPavillon'])) {
                     $this->upPavillon->update([$nom_pavillon,$nbr_etage,$post['idPavillon']]);
                     $this->redirect("pavillon/showPavillon");
                 }else {
@@ -67,7 +85,7 @@ class PavillonController extends AbstractController
                     $this->upPavillon->insert([$nom_pavillon,$num_pavillon,$nbr_etage]);
                     Session::setSession('successInsert',['Pavillon ajouter avec succes']);
                     $this->redirect("pavillon/showAddPavillon");
-                }
+                } */
                
             }else {
                 Session::setSession('arrayError',$this->validator->getErreurs());
@@ -76,5 +94,14 @@ class PavillonController extends AbstractController
         }else {
             
         }
+    }
+
+    public function deletePavillon()
+    {
+      /*   if ($this->request->isPost()) {
+            $post=$this->request->request();
+            $this->upPavillon->remove($post['id']);
+            $this->redirect("chambre/showChambre");
+        } */
     }
 }
