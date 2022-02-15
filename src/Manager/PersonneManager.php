@@ -8,8 +8,8 @@ class PersonneManager extends AbstractManager
     protected string $role;
     public function __construct()
     {
-        $this->tableName="";
-        $this->primaryKey="";
+        $this->tableName="personne";
+        $this->primaryKey="id_personne";
         parent::__construct();
     }
 

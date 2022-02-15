@@ -9,7 +9,7 @@ class EtudiantNBoursierManager extends EtudiantManager
     }
     public function insert(array $data):int
     {
-        $sql="insert into $this->tableName nom,prenom,email,role,matricule,date_naissance,adresse values ()";
+        $sql="insert into $this->tableName (nom,prenom,email,role,matricule,date_naissance,adresse,telephone) values (?,?,?,?,?,?,?,?)";
         return $this->database->executeUpdate($sql,$data);
     }
 
