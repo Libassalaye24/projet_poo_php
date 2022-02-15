@@ -1,21 +1,15 @@
-<?php
+<?php 
 namespace App\Manager;
-
-use App\Core\Orm\AbstractManager;
-
-class PersonneManager extends AbstractManager
+class EtudiantNBoursierManager extends EtudiantManager
 {
-    protected string $role;
     public function __construct()
     {
-        $this->tableName="";
-        $this->primaryKey="";
         parent::__construct();
+       
     }
-
     public function insert(array $data):int
     {
-        $sql="insert into $this->tableName () values ()";
+        $sql="insert into $this->tableName nom,prenom,email,role,matricule,date_naissance,adresse values ()";
         return $this->database->executeUpdate($sql,$data);
     }
 
@@ -25,5 +19,4 @@ class PersonneManager extends AbstractManager
         where $this->primaryKey=?";
         return $this->database->executeUpdate($sql,$data);
     }
-    
 }
