@@ -15,7 +15,7 @@ class ChambreRepository extends AbstractRepository
     }
     public function findAll(): array
     {
-        $sql="select * from $this->tableName c,pavillon p where c.id_pavillon=p.id_pavillon ";
+        $sql="select * from $this->tableName c,type_chambre t where t.id_type_chambre=c.id_type_chambre ";
         return $this->database->executeSelect($sql);
     }
     public function findById(int $id): array
@@ -26,7 +26,17 @@ class ChambreRepository extends AbstractRepository
     }
     public function findChambrePavillon(int $id):object|bool|array
     {
-        $sql="select * from $this->tableName c,pavillon p where c.id_pavillon=p.id_pavillon and $this->primaryKey=?";
+        $sql="select * from $this->tableName c,type_chambre t where c.id_type_chambre=t.id_type_chambre and c.$this->primaryKey=?";
         return $this->findBy($sql,[$id]);
+    }
+    public function findChambrePavillonNull()
+    {
+        $sql="select * from $this->tableName where id_pavillon IS NULL ";
+        return $this->database->executeSelect($sql);
+    }
+    public function findChambrePavillonNotNull()
+    {
+        $sql="select * from $this->tableName where id_pavillon IS NOT NULL ";
+        return $this->database->executeSelect($sql);
     }
 }
