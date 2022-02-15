@@ -1,7 +1,5 @@
 <style>
-    *{
-        overflow: hidden;
-    }
+   
 </style>
 <div class="container" style="margin-top: 5%;">
            <div class="row">
@@ -37,12 +35,13 @@
     <div class="column mt-5">
     <div class="card shadow p-3">
         <table class="table border border-secondary">
-            <thead>
+            <thead class="" style="background-color:#152032;color:white">
                 <tr class="border border-secondary">
                     <th scope="col">#</th>
                     <th scope="col">Nom Pavillon</th>
                     <th scope="col">Numero Pavillon</th>
                     <th scope="col">Nombre Etage</th>
+                    <th scope="col">Chambre</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -55,14 +54,11 @@
                     <td><?=$pavillon->nbr_etage?></td>
                     <td>
                         <div class="ligne " style="display: flex;">
-                        <a name="" id="" class="btn btn-warning mr-2" href="<?=WEBROOT.'pavillon/showUpdatePavillon/'.$pavillon->id_pavillon?>" role="button">update</a>
-                                <button type="button" disabled  class="btn btn-danger" >
-                                     <span class="badge badge-danger">
-                                     delete
-                                     </span>
-                                </button>
-                               
+                            <a name="" id="" class="btn  " style="background-color:#152032;color:white;" href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon'.$pavillon->id_pavillon?>" role="button"><i class="fa-solid fa-square-plus"></i> voir</a>                            
                         </div>
+                    </td>
+                    <td>
+                         <a name="" id="" class="btn btn-warning " href="<?=WEBROOT.'pavillon/showUpdatePavillon/'.$pavillon->id_pavillon?>" role="button"><i class="fa-solid fa-pen-to-square"></i>update</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -91,3 +87,4 @@
         </nav>
     </div>
 </div>
+

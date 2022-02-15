@@ -26,7 +26,7 @@
                </div>
                <div class="col-md-6">
                    
-                    <a name="" id="" class="btn btn-dark" href="<?=WEBROOT."etudiant/addEtudiant"?>" role="button" style="float: right;">Ajout Etudiant</a>
+                    <a name="" id="" class="btn btn-dark" href="<?=WEBROOT."etudiant/showAddEtudiant"?>" role="button" style="float: right;">Ajout Etudiant</a>
                </div>
            </div>
     <div class="column mt-5">
