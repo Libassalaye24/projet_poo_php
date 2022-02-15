@@ -2,37 +2,37 @@
 namespace App\Entity;
 class EtudiantBoursierNonLoge extends EtudiantBoursier
 {
-    private string $type;
 
     public function __construct()
     {
-        
+        parent::__construct();
     }
-    /**
-     * Get the value of type
-     *
-     * @return  string
-     */
-    public function getType()
+   
+    public static function fromArray(object $objet): array
     {
-        return $this->type;
-    }
+       $array=array_values((array)$objet);
+       $array[]=$array[4];  
+       $array[]=$array[5];  
+       $array[]=$array[6];  
+       $array[]=$array[7];  
+       $array[]=$array[2];  
+       $array[]=$array[3];  
+       $array[]=$array[0];  
+       $array[]='';  
+       $array[]='';  
+       $array[]=null; 
+       $array[]=$array[1]; 
+    
 
-    /**
-     * Set the value of type
-     *
-     * @param  string  $type
-     *
-     * @return  self
-     */
-    public function setType(string $type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-    public function affiche(): string
-    {
-        return parent::affiche().' '.$this->getType();
+       unset($array[0]);
+       unset($array[1]);
+      unset($array[2]);
+      unset($array[3]);
+      unset($array[4]);
+       unset($array[5]);
+       unset($array[6]);
+       unset($array[7]);
+     
+      return array_values($array);
     }
 }

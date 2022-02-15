@@ -3,13 +3,13 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Chambre {
+class Chambre implements EntityInterface {
     private int $id;
     private string $numChambre;
     private string $numEtage;
-    private string $type;
+    private int $type;
 //propriete navigationnelle ManyToOne
-    private string $pavillon;
+    private int $pavillon;
     //
     //OneToMany
     private ArrayCollection $etudiantBoursierloge;
@@ -18,7 +18,10 @@ class Chambre {
     {
         
     }
-
+    public static function fromArray(object $objet):array
+    {
+        return [];
+    }
     /**
      * Get the value of id
      *
@@ -45,29 +48,7 @@ class Chambre {
 
     
 
-    /**
-     * Get the value of type
-     *
-     * @return  string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set the value of type
-     *
-     * @param  string  $type
-     *
-     * @return  self
-     */
-    public function setType(string $type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+   
 
     /**
      * Get the value of numChambre
@@ -113,6 +94,57 @@ class Chambre {
     public function setNumEtage(string $numEtage)
     {
         $this->numEtage = $numEtage;
+
+        return $this;
+    }
+
+    
+
+
+    /**
+     * Get the value of type
+     *
+     * @return  int
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the value of type
+     *
+     * @param  int  $type
+     *
+     * @return  self
+     */
+    public function setType(int $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of pavillon
+     *
+     * @return  int
+     */
+    public function getPavillon()
+    {
+        return $this->pavillon;
+    }
+
+    /**
+     * Set the value of pavillon
+     *
+     * @param  int  $pavillon
+     *
+     * @return  self
+     */
+    public function setPavillon(int $pavillon)
+    {
+        $this->pavillon = $pavillon;
 
         return $this;
     }

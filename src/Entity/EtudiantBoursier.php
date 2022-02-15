@@ -2,16 +2,16 @@
 namespace App\Entity;
 class EtudiantBoursier extends Etudiant
 {
-    private string $bourse;
+    private int $bourse;
 
     public function __construct()
     {
-        
+        parent::__construct();
     }
     /**
      * Get the value of bourse
      *
-     * @return  string
+     * @return  int
      */
     public function getBourse()
     {
@@ -21,11 +21,11 @@ class EtudiantBoursier extends Etudiant
     /**
      * Set the value of bourse
      *
-     * @param  string  $bourse
+     * @param  int  $bourse
      *
      * @return  self
      */
-    public function setBourse(string $bourse)
+    public function setBourse(int $bourse)
     {
         $this->bourse = $bourse;
 

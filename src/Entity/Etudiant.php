@@ -5,15 +5,17 @@ use DateTime;
 
 class Etudiant extends Personne
 {
+    protected int $telephone;
     protected string $matricule;
-    protected DateTime $dateNaissance;
+    protected string $dateNaissance;
     
     public function __construct()
     {
         $this->role="ROLE_ETUDIANT";
     }
+   
 
-
+  
     /**
      * Get the value of matricule
      *
@@ -41,7 +43,7 @@ class Etudiant extends Personne
     /**
      * Get the value of dateNaissance
      *
-     * @return  DateTime
+     * @return  string
      */
     public function getDateNaissance()
     {
@@ -51,11 +53,11 @@ class Etudiant extends Personne
     /**
      * Set the value of dateNaissance
      *
-     * @param  DateTime  $dateNaissance
+     * @param  string  $dateNaissance
      *
      * @return  self
      */
-    public function setDateNaissance(DateTime $dateNaissance)
+    public function setDateNaissance(string $dateNaissance)
     {
         $this->dateNaissance = $dateNaissance;
 
@@ -64,5 +66,29 @@ class Etudiant extends Personne
     public function affiche(): string
     {
        return parent::affiche().' '.$this->getMatricule().' '.$this->getDateNaissance();
+    }
+
+    /**
+     * Get the value of telephone
+     *
+     * @return  int
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set the value of telephone
+     *
+     * @param  int  $telephone
+     *
+     * @return  self
+     */
+    public function setTelephone(int $telephone)
+    {
+        $this->telephone = $telephone;
+
+        return $this;
     }
 }

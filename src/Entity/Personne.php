@@ -1,12 +1,11 @@
 <?php
 namespace App\Entity;
-class Personne 
+class Personne implements EntityInterface
 {
     protected int $id;
     protected string $nom;
     protected string $prenom;
     protected string $email;
-    protected int $telephone;
     protected string $role="ROLE_PERSONNE";
 //ManyToOne
   //
@@ -15,7 +14,11 @@ class Personne
         
     }
 
-
+    public static function fromArray(object $objet):array
+    {
+        $array=array_values(array($objet));
+        return $array;
+    }
 
     /**
      * Get the value of id
@@ -113,31 +116,9 @@ class Personne
         return $this;
     }
 
-    /**
-     * Get the value of telephone
-     *
-     * @return  int
-     */
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
 
-    /**
-     * Set the value of telephone
-     *
-     * @param  int  $telephone
-     *
-     * @return  self
-     */
-    public function setTelephone(int $telephone)
-    {
-        $this->telephone = $telephone;
-
-        return $this;
-    }
     function affiche():string
     {
-        return $this->getId().' '.$this->getNom().' '.$this->getPrenom().' '.$this->getEmail().' '.$this->getTelephone();
+        return $this->getId().' '.$this->getNom().' '.$this->getPrenom().' '.$this->getEmail();
     }
 }

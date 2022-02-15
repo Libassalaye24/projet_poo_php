@@ -3,8 +3,8 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Pavillon 
-{
+class Pavillon implements EntityInterface
+{ 
     private int $id;
     private string $numPavillon;
     private string $nbrEtage;
@@ -15,6 +15,11 @@ class Pavillon
         $this->chambres=new ArrayCollection();
     }
 
+    public static function fromArray(object $objet):array
+    {
+        return [];
+    }
+    
     /**
      * Get the value of id
      *
