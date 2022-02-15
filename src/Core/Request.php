@@ -31,6 +31,10 @@
         unset($url[1]);
         return array_values($url);
       }
+      public function formatQuery($id):string{
+        $i=explode("=",implode($id)); 
+        return $i[1];
+      }
       //recuperer les valeurs du post
       public function request():array{
         return $_POST;

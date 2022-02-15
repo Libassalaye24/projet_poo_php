@@ -24,6 +24,27 @@
              $this->erreurs[$key]='L\'email n\'est pas valide';
         }
     }
+
+    public function isNumeric($valeur):bool{
+        return is_numeric($valeur);
+    }
+
+    public function validNbr($valeur,string $key):void
+    {
+        if (empty($valeur)) {
+            $this->erreurs[$key]="Le champs est obligatoire";
+        }elseif (!$this->isNumeric($valeur)) {
+            $this->erreurs[$key]="Veillez saisir des entiers";
+        }
+    }
+    public function validString($valeur,string $key):void
+    {
+        if (empty($valeur)) {
+            $this->erreurs[$key]="Le champs est obligatoire";
+        }elseif ($this->isNumeric($valeur)) {
+            $this->erreurs[$key]="Veillez saisir une chaine";
+        }
+    }
     public function validChoice(string $choix,string $key)
     {
         if ($choix=="0") {
@@ -59,6 +80,7 @@
      {
          return $this->erreurs;
      }
+
     // public function setEreurs()
      
  }

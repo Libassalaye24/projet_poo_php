@@ -6,7 +6,7 @@ abstract class AbstractManager extends AbstractObject implements ManagerInterfac
     {
         parent::__construct();
     }
-   public function remove(string $sql, int $id): int
+   public function remove(int $id): int
     {
         $sql="delete from $this->tableName where $this->primaryKey=?";
         return $this->database->executeUpdate($sql,[$id]);
