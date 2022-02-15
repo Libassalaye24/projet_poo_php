@@ -34,20 +34,21 @@ $arrayError=[];
     <?php endif; ?>
     <div class="border border-secondary">
     <div class="card-body ">
-        <h4 class="card-title">Title</h4>
-        <p class="card-text">Text</p>
+        <h4 class="card-title"> Ajout Pavillon</h4>
         <form action="<?=WEBROOT.'pavillon/addPavillon'?>" method="POST">
             <input type="hidden" name="controller" value="pavillon">
             <input type="hidden" name="idPavillon" value="<?=isset($idPavillon) ? $idPavillon : "" ?>">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col">
                     <div class="form-group">
                       <label for="">Nom Pavillon</label> 
                       <input type="text" name="nom_pavillon" id="" class="form-control" value="<?=isset($nomPavillon) ? $nomPavillon : "" ?><?= isset($post['nom_pavillon']) ? $post['nom_pavillon'] : "" ?>">
                       <small id="helpId" class="text-danger"><?=isset($arrayError['nom_pavillon'])?$arrayError['nom_pavillon']: ""?></small>
                     </div>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row">
+                <div class="col">
                     <div class="form-group">
                       <label for="">Nombre Etage</label>
                       <input type="text" name="nbr_etage" id="" value="<?=isset($nbrEtage) ? $nbrEtage : "" ?><?= isset($post['nbr_etage']) ? $post['nbr_etage'] : "" ?>" class="form-control" placeholder="" aria-describedby="helpId">
@@ -55,23 +56,10 @@ $arrayError=[];
                     </div>
                 </div>
             </div>
+           
+            
             <div class="row">
-                <div class="col-md-6 col-sm-6">
-                     <div class="form-check form-check-inline">
-                         <label class="form-check-label">
-                              <input class="form-check-input mt-1" type="radio" name="chambre" id=""   <?= (isset($post['chambre']) && $post['chambre']=='affecter')?'checked':"" ?> value="affecter"> Affecter des Chambres
-                         </label>
-                     </div>
-                   
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <button type="submit" class="btn btn-primary" name="ok" style="background-color: #152032;color:#fff">OK</button>
-                </div>
-            </div>
-            <?php if(isset($post)): ?>
-                <?php if($post['chambre']=='affecter'): ?>
-            <div class="row">
-                <h5>Selectionnez des chambres</h5><?php $i=0; ?>
+               <label for="">Selectionnez des chambres(Facultatif)</label><?php $i=0; ?>
                 <?php foreach($chambres as $chambre): ?>
                     <?php $i++; ?>
                <div class="col-md-3">
@@ -81,12 +69,11 @@ $arrayError=[];
                        </label>
                    </div>
                </div>
-               <?php endforeach; ?>
+               
             </div>
-            <?php endif; ?>
-            <?php endif; ?>
+            <?php endforeach ?>
             <div class="row mt-4">
-                <button type="submit" name="btn_valider" class="btn  w-50 ml-auto mr-auto" style="background-color: #152032;color:#fff"><?=isset($idPavillon) ? 'Modifier' : "Valider" ?></button>
+                <button type="submit" name="btn_valider" class="btn  w-25 ml-auto mr-auto" style="background-color: #152032;color:#fff"><?=isset($idPavillon) ? 'Modifier' : "Valider" ?></button>
             </div>
         </form>
     </div>

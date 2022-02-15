@@ -13,7 +13,7 @@ $arrayError=[];
  }elseif ($url[1]=='showAddEtudiantNBoursier') {
     $action='addEtudiantNBoursier';
 }
-//var_dump(WEBROOT.'etudiant/'.$action); die;
+
 ?>
 <div class="container mt-5">
     
@@ -39,18 +39,26 @@ $arrayError=[];
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Email</label>
                                 <input type="text" name="email" id="" class="form-control" placeholder="" aria-describedby="helpId">
                                 <small id="helpId" class="text-danger"><?=isset($arrayError['email'])?$arrayError['email']: ""?></small>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="">Date Naissance</label>
                                 <input type="date" name="date_naissance" id="" class="form-control" placeholder="" aria-describedby="helpId">
                                 <small id="helpId" class="text-danger"><?=isset($arrayError['date_naissance'])?$arrayError['date_naissance']: ""?></small>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">Telephone</label>
+                                <input type="text" name="telephone" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                                <small id="helpId" class="text-danger"><?=isset($arrayError['telephone'])?$arrayError['telephone']: ""?></small>
                             </div>
                             
                         </div>
@@ -66,7 +74,7 @@ $arrayError=[];
                         </div>
                     </div>
                 <?php endif; ?>
-                <?php if($url[1]=="showAddEtudiantBoursierLoge" || $url[1]=="showAddEtudiantBoursierNLoge"): ?>
+                <?php if($url[1] !="showAddEtudiantNBoursier" ): ?>
                     <div class="row">
                         <div class="col">
                              <div class="form-group">

@@ -17,6 +17,52 @@
             <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showAddEtudiantNBoursier"?>">Non Bourdier</a></li>
           </ul>
         </li>
+  
+  <style>
+    a {
+  text-decoration: none;
+}
+
+nav {
+  font-family: monospace;
+}
+
+li:hover,
+li:focus-within {
+  cursor: pointer;
+}
+
+li:focus-within a {
+  outline: none;
+}
+
+ul li ul {
+  background: orange;
+  visibility: hidden;
+  opacity: 0;
+  min-width: 5rem;
+  position: absolute;
+  transition: all 0.5s ease;
+  margin-top: 1rem;
+  left: 0;
+  display: none;
+}
+
+ul li:hover > ul,
+ul li:focus-within > ul,
+ul li ul:hover,
+ul li ul:focus {
+   visibility: visible;
+   opacity: 1;
+   display: block;
+}
+
+ul li ul li {
+  clear: both;
+  width: 100%;
+}
+
+  </style>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<?=WEBROOT."pavillon/showPavillon"?>">Pavillon</a>
         </li>
