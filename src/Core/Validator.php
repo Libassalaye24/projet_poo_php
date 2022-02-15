@@ -45,6 +45,14 @@
             $this->erreurs[$key]="Veillez saisir une chaine";
         }
     }
+    public function valideNumberCall(string $number,string $key):void{
+         $pattern4='#^(\+|00)?(221)?(77|70|75|78|76)[0-9]{7}$#';
+         if (empty($number)) {
+            $this->erreurs[$key]="Champs obligatoire";
+         }elseif (!preg_match($pattern4,$number)) {
+            $this->erreurs[$key]="Veillez saisir un numero Valide";
+         }
+     }
     public function validChoice(string $choix,string $key)
     {
         if ($choix=="0") {

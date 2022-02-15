@@ -56,8 +56,10 @@ class Database{
       //  var_dump($data['tuteur']);
        //  die;
         $stm=$this->pdo->prepare($sql);
+        /* var_dump($stm);
+        die; */
         $stm->execute(array_values($data));
-       /*  var_dump($stm);
+      /*  var_dump($stm);
         die; */
         if (!strpos(strtolower($sql),strtolower("insert"))) {
            return $this->pdo->lastInsertId();
