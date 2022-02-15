@@ -53,12 +53,7 @@ class PavillonController extends AbstractController
             $this->validator->validNbr($nbr_etage,'nbr_etage');
             if ($this->validator->valid()) {
                $post = $this->request->request();
-               if (isset($post['ok'])) {
-                   Session::setSession('ok',$post);
-                   $this->redirect("pavillon/showAddPavillon");
-                //  var_dump(Session::getSession('ok')); die;
-               }elseif (isset($post['btn_valider'])) {
-               // var_dump($post); die;
+              if (isset($post['btn_valider'])) {
                 $chambres=$this->chambreRepository->findChambrePavillonNull();
                 $i=0;
                 $num_pavillon=uniqid();
@@ -68,8 +63,6 @@ class PavillonController extends AbstractController
                 foreach ($chambres as $chambre) {
                     $i++;
                     if (isset($post['chambre'.$i])) {
-                       // var_dump($post); die;
-
                         $this->chambreManager->updateIdPavillon([$id_pavillon,(int)$post['chambre'.$i]]);
 
                     }

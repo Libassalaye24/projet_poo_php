@@ -1,14 +1,20 @@
 <?php
 namespace App\Controllers;
 
-use App\Core\AbstractController;
 use App\Core\Request;
 use App\Core\Session;
 use App\Entity\Bourse;
+use App\Entity\Etudiant;
+use App\Core\AbstractController;
+use App\Manager\EtudiantManager;
 use App\Manager\PersonneManager;
+use App\Entity\EtudiantNonBoursier;
+use App\Entity\EtudiantBoursierLoge;
 use App\Repository\BourseRepository;
 use App\Repository\ChambreRepository;
 use App\Repository\EtudiantRepository;
+use App\Entity\EtudiantBoursierNonLoge;
+use App\Manager\EtudiantNBoursierManager;
 
 class EtudiantController extends AbstractController
 {
@@ -47,7 +53,7 @@ class EtudiantController extends AbstractController
     {
         $url=$this->request->getUrl();
         $bourses=$this->bourseRepo->findAll();
-        $this->render("etudiant/add.etudiant.html.php",[$url],['bourses'=>$bourses]);
+        $this->render("etudiant/add.etudiant.html.php",['url'=>$url],['bourses'=>$bourses]);
     }
     public function addEtudiantBoursierLoge()
     {
@@ -62,7 +68,22 @@ class EtudiantController extends AbstractController
                 $this->validator->validChoice($bourse,'bourse');
 
                 if ($this->validator->valid()) {
-                    
+                    $matricule=uniqid();
+                    $etu=new EtudiantBoursierLoge;
+                    $etuManager=new EtudiantManager;
+                  //  $uuu=new Etudiant;
+                    $etu->setNom($nom)
+                        ->setPrenom($prenom)
+                        ->setEmail($email);
+                    $etu->setTelephone($telephone)
+                        ->setMatricule($matricule)
+                        ->setDateNaissance($date_naissance); 
+                    $etu->setBourse($bourse);
+                    $etu->setChambre($chambre);
+                    $insert = $etu->fromArray($etu);
+                   // var_dump($insert); die;
+                    $etuManager->insert($insert);
+                    $this->redirect("etudiant/showEtudiants");
                 }else {
                     Session::setSession('arrayError',$this->validator->getErreurs());
                     $this->redirect("etudiant/showAddEtudiantBoursierLoge");
@@ -79,10 +100,24 @@ class EtudiantController extends AbstractController
                 $this->validator->isVide($prenom,'prenom');
                 $this->validator->isVide($email,'email');
                 $this->validator->isVide($date_naissance,'date_naissance');
+                $this->validator->valideNumberCall($telephone,'telephone');
                 $this->validator->isVide($adresse,'adresse');
 
                 if ($this->validator->valid()) {
-                    
+                    $matricule=uniqid();
+                    $etu=new EtudiantNonBoursier;
+                    $etuManager=new EtudiantManager;
+                    $uuu=new EtudiantNonBoursier;
+                    $etu->setNom($nom)
+                        ->setPrenom($prenom)
+                        ->setEmail($email);
+                    $etu->setTelephone($telephone)
+                        ->setMatricule($matricule)
+                        ->setDateNaissance($date_naissance); 
+                    $etu->setAdresse($adresse);
+                    $test = $uuu->fromArray($etu);
+                        $etuManager->insert($test);
+                    $this->redirect("etudiant/showEtudiants");
                 }else {
                     Session::setSession('arrayError',$this->validator->getErreurs());
                     $this->redirect("etudiant/showAddEtudiantNBoursier");
@@ -97,12 +132,26 @@ class EtudiantController extends AbstractController
                 extract($this->request->request());
                 $this->validator->isVide($nom,'nom');
                 $this->validator->isVide($prenom,'prenom');
-                $this->validator->isVide($email,'email');
+                $this->validator->valideFieldMail($email,'email');
+                $this->validator->valideNumberCall($telephone,'telephone');
                 $this->validator->isVide($date_naissance,'date_naissance');
                 $this->validator->validChoice($bourse,'bourse');
 
                 if ($this->validator->valid()) {
-                    
+                    $matricule=uniqid();
+                    $etu=new EtudiantBoursierNonLoge;
+                    $etuManager=new EtudiantManager;
+                  //  $uuu=new Etudiant;
+                    $etu->setNom($nom)
+                        ->setPrenom($prenom)
+                        ->setEmail($email);
+                    $etu->setTelephone($telephone)
+                        ->setMatricule($matricule)
+                        ->setDateNaissance($date_naissance); 
+                    $etu->setBourse($bourse);
+                    $test = $etu->fromArray($etu);
+                        $etuManager->insert($test);
+                    $this->redirect("etudiant/showEtudiants");
                 }else {
                     Session::setSession('arrayError',$this->validator->getErreurs());
                     $this->redirect("etudiant/showAddEtudiantBoursierNLoge");
