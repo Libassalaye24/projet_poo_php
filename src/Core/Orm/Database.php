@@ -56,7 +56,7 @@ class Database{
       //  var_dump($data['tuteur']);
        //  die;
         $stm=$this->pdo->prepare($sql);
-        /* var_dump($stm);
+      /*   var_dump($sql);
         die; */
         $stm->execute(array_values($data));
       /*  var_dump($stm);
