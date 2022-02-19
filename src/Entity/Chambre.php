@@ -10,6 +10,11 @@ class Chambre implements EntityInterface {
     private int $type;
 //propriete navigationnelle ManyToOne
     private int $pavillon;
+    private Pavillon $idPavillon;
+    private TypeChambre $typeChambre;
+    private string $etat;
+    
+    
     //
     //OneToMany
     private ArrayCollection $etudiantBoursierloge;
@@ -18,9 +23,89 @@ class Chambre implements EntityInterface {
     {
         
     }
+    public static function fromArray2(object $objet):array
+    {
+         $array=array_values((array)$objet);
+         $ar1=array_values((array)$array[3]);
+         $ar=array_values((array)$array[2]);
+         $array[]=$ar1[0];
+         $array[]=$ar[0];
+         $array[]=$array[4];
+         unset($array[2]);
+         unset($array[3]);
+         unset($array[4]);
+       
+         return array_values($array);
+    }
+    public static function fromArray3(object $objet):array
+    {
+         $array=array_values((array)$objet);
+         $ar1=array_values((array)$array[3]);
+         $ar=array_values((array)$array[2]);
+         $array[]=$ar1[0];
+         if ($ar[0]=='0') {
+            $array[]=null;
+         }else {
+             $array[]=$ar[0];
+         }
+         
+       //  $array[]=$ar[0];
+         $array[]=$array[4];
+        // $array[]=$ar[0];
+        unset($array[0]);
+         unset($array[2]);
+         unset($array[3]);
+         unset($array[4]);
+       
+         return array_values($array);
+    }
     public static function fromArray(object $objet):array
     {
-        return [];
+        $array=array_values((array)$objet);
+        $ar1=array_values((array)$array[3]);
+        $ar=array_values((array)$array[2]);
+        $array[]=$ar1[0];
+        if ($ar[0]=='0') {
+           $array[]=null;
+        }else {
+            $array[]=$ar[0];
+        }
+        
+      //  $array[]=$ar[0];
+        $array[]=$array[4];
+       // $array[]=$ar[0];
+        unset($array[2]);
+        unset($array[3]);
+        unset($array[4]);
+      
+         return array_values($array);
+    }
+    public static function fromArrayUpdate(object $objet):array
+    {
+      
+       $array=array_values((array)$objet);
+       $array[]=$array[1];
+       $array[]=$array[2];
+       $arr=array_values((array)$array[4]);
+       $array[]=$arr[0];
+       $ar=array_values((array)$array[3]);
+       $array[]=$ar[0];
+       $array[]=$array[5];
+       $array[]=$array[0];
+       unset($array[0]);
+       unset($array[1]);
+       unset($array[2]);
+       unset($array[3]);
+       unset($array[4]);
+       unset($array[5]);
+      /*  $array[]=$array[0];
+       unset($array[0]); */
+       return  array_values($array);
+          
+    }
+    public function __toString()
+    {
+        return $this->numChambre.''.$this->numEtage.''.$this->type.''.$this->pavillon.''.$this->etat;
     }
     /**
      * Get the value of id
@@ -145,6 +230,78 @@ class Chambre implements EntityInterface {
     public function setPavillon(int $pavillon)
     {
         $this->pavillon = $pavillon;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of etat
+     *
+     * @return  string
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set the value of etat
+     *
+     * @param  string  $etat
+     *
+     * @return  self
+     */
+    public function setEtat(string $etat)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idPavillon
+     *
+     * @return  Pavillon
+     */
+    public function getIdPavillon()
+    {
+        return $this->idPavillon;
+    }
+
+    /**
+     * Set the value of idPavillon
+     *
+     * @param  Pavillon  $idPavillon
+     *
+     * @return  self
+     */
+    public function setIdPavillon(Pavillon $idPavillon)
+    {
+        $this->idPavillon = $idPavillon;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of typeChambre
+     *
+     * @return  TypeChambre
+     */
+    public function getTypeChambre()
+    {
+        return $this->typeChambre;
+    }
+
+    /**
+     * Set the value of typeChambre
+     *
+     * @param  TypeChambre  $typeChambre
+     *
+     * @return  self
+     */
+    public function setTypeChambre(TypeChambre $typeChambre)
+    {
+        $this->typeChambre = $typeChambre;
 
         return $this;
     }
