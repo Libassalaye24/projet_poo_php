@@ -13,7 +13,7 @@ class ChambreManager extends AbstractManager
     }
     public function insert(array $data):int
     {
-        $sql="insert into $this->tableName (num_chambre,num_etage,id_type_chambre) values (?,?,?)";
+        $sql="insert into $this->tableName (num_chambre,num_etage,id_type_chambre,id_pavillon,etat) values (?,?,?,?,?)";
         return $this->database->executeUpdate($sql,$data);
     }
     public function updateIdPavillon(array $data):int
@@ -22,10 +22,22 @@ class ChambreManager extends AbstractManager
         where $this->primaryKey=?";       
          return $this->database->executeUpdate($sql,$data);
     }
+    public function updateEtatArchive(array $data):int
+    {
+        $sql="update $this->tableName set etat=?
+        where $this->primaryKey=?";       
+         return $this->database->executeUpdate($sql,$data);
+    }
 
     public function update(array $data):int
     {
-        $sql="update $this->tableName set num_etage=?,id_type_chambre=?
+        $sql="update $this->tableName set num_etage=?,id_type_chambre=?,id_pavillon=?,etat=?
+        where $this->primaryKey=?";
+        return $this->database->executeUpdate($sql,$data);
+    }
+    public function update2(array $data):int
+    {
+        $sql="update $this->tableName set num_chambre=?,num_etage=?,id_type_chambre=?,id_pavillon=?,etat=?
         where $this->primaryKey=?";
         return $this->database->executeUpdate($sql,$data);
     }
