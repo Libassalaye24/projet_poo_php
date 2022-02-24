@@ -2,16 +2,19 @@
 namespace App\Entity;
 class EtudiantBoursier extends Etudiant
 {
-    private int $bourse;
+    private Bourse $bourse;
 
     public function __construct()
     {
         parent::__construct();
     }
+    
+   
+
     /**
      * Get the value of bourse
      *
-     * @return  int
+     * @return  Bourse
      */
     public function getBourse()
     {
@@ -21,16 +24,17 @@ class EtudiantBoursier extends Etudiant
     /**
      * Set the value of bourse
      *
-     * @param  int  $bourse
+     * @param  Bourse  $bourse
      *
      * @return  self
      */
-    public function setBourse(int $bourse)
+    public function setBourse(Bourse $bourse)
     {
         $this->bourse = $bourse;
 
         return $this;
     }
+
     public function affiche(): string
     {
         return parent::affiche().' '.$this->getBourse();

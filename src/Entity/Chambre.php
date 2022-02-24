@@ -10,7 +10,7 @@ class Chambre implements EntityInterface {
     private int $type;
 //propriete navigationnelle ManyToOne
     private int $pavillon;
-    private Pavillon $idPavillon;
+    private Pavillon|null $idPavillon;
     private TypeChambre $typeChambre;
     private string $etat;
     
@@ -23,73 +23,67 @@ class Chambre implements EntityInterface {
     {
         
     }
-    public static function fromArray2(object $objet):array
-    {
-         $array=array_values((array)$objet);
-         $ar1=array_values((array)$array[3]);
-         $ar=array_values((array)$array[2]);
-         $array[]=$ar1[0];
-         $array[]=$ar[0];
-         $array[]=$array[4];
-         unset($array[2]);
-         unset($array[3]);
-         unset($array[4]);
-       
-         return array_values($array);
-    }
-    public static function fromArray3(object $objet):array
-    {
-         $array=array_values((array)$objet);
-         $ar1=array_values((array)$array[3]);
-         $ar=array_values((array)$array[2]);
-         $array[]=$ar1[0];
-         if ($ar[0]=='0') {
-            $array[]=null;
-         }else {
-             $array[]=$ar[0];
-         }
-         
-       //  $array[]=$ar[0];
-         $array[]=$array[4];
-        // $array[]=$ar[0];
-        unset($array[0]);
-         unset($array[2]);
-         unset($array[3]);
-         unset($array[4]);
-       
-         return array_values($array);
-    }
     public static function fromArray(object $objet):array
     {
+         $array=array_values((array)$objet);
+         $array[]=$array[0];
+         $array[]=$array[1];
+         $array[]=$array[3]->getId();
+         if ($array[2]==null) {
+            $array[]=$array[2];
+         }else {
+            $array[]=$array[2]->getId();
+         }
+         $array[]=$array[4];
+         unset($array[0]);
+         unset($array[1]);
+         unset($array[2]);
+         unset($array[3]);
+         unset($array[4]);
+       
+         return array_values($array);
+    }
+    public static function fromArrayUpdate(object $objet):array
+    {
+         $array=array_values((array)$objet);
+         $array[]=$array[1];
+         $array[]=$array[2];
+         $array[]=$array[4]->getId();
+         $array[]=$array[3]->getId();
+         $array[]=$array[5];
+         $array[]=$array[0];
+         unset($array[0]);
+         unset($array[1]);
+         unset($array[2]);
+         unset($array[3]);
+         unset($array[4]);
+         unset($array[5]);
+         return array_values($array);
+    }
+    /* public static function fromArray(object $objet):array
+    {
         $array=array_values((array)$objet);
-        $ar1=array_values((array)$array[3]);
-        $ar=array_values((array)$array[2]);
-        $array[]=$ar1[0];
-        if ($ar[0]=='0') {
-           $array[]=null;
-        }else {
-            $array[]=$ar[0];
-        }
-        
-      //  $array[]=$ar[0];
+        $array[]=$array[0];
+        $array[]=$array[1];
+        $array[]=$array[3]->getId();
+        $array[]=$array[2];
         $array[]=$array[4];
-       // $array[]=$ar[0];
+        unset($array[0]);
+        unset($array[1]);
         unset($array[2]);
         unset($array[3]);
         unset($array[4]);
       
          return array_values($array);
-    }
-    public static function fromArrayUpdate(object $objet):array
+    } */
+ /*    public static function fromArrayUpdate(object $objet):array
     {
       
        $array=array_values((array)$objet);
        $array[]=$array[1];
        $array[]=$array[2];
-       $arr=array_values((array)$array[4]);
-       $array[]=$arr[0];
-       $ar=array_values((array)$array[3]);
-       $array[]=$ar[0];
+       $array[]=$array[4]->getId();
+       $array[]=$array[3]->getId();
        $array[]=$array[5];
        $array[]=$array[0];
        unset($array[0]);
@@ -98,11 +92,9 @@ class Chambre implements EntityInterface {
        unset($array[3]);
        unset($array[4]);
        unset($array[5]);
-      /*  $array[]=$array[0];
-       unset($array[0]); */
        return  array_values($array);
           
-    }
+    } */
     public function __toString()
     {
         return $this->numChambre.''.$this->numEtage.''.$this->type.''.$this->pavillon.''.$this->etat;
@@ -258,29 +250,7 @@ class Chambre implements EntityInterface {
         return $this;
     }
 
-    /**
-     * Get the value of idPavillon
-     *
-     * @return  Pavillon
-     */
-    public function getIdPavillon()
-    {
-        return $this->idPavillon;
-    }
-
-    /**
-     * Set the value of idPavillon
-     *
-     * @param  Pavillon  $idPavillon
-     *
-     * @return  self
-     */
-    public function setIdPavillon(Pavillon $idPavillon)
-    {
-        $this->idPavillon = $idPavillon;
-
-        return $this;
-    }
+   
 
     /**
      * Get the value of typeChambre
@@ -302,6 +272,30 @@ class Chambre implements EntityInterface {
     public function setTypeChambre(TypeChambre $typeChambre)
     {
         $this->typeChambre = $typeChambre;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of idPavillon
+     *
+     * @return  Pavillon|null
+     */
+    public function getIdPavillon()
+    {
+        return $this->idPavillon;
+    }
+
+    /**
+     * Set the value of idPavillon
+     *
+     * @param  Pavillon|null  $idPavillon
+     *
+     * @return  self
+     */
+    public function setIdPavillon($idPavillon)
+    {
+        $this->idPavillon = $idPavillon;
 
         return $this;
     }

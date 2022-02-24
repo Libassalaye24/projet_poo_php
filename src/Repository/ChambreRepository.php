@@ -13,13 +13,23 @@ class ChambreRepository extends AbstractRepository
         $this->primaryKey="id_chambre";
         parent::__construct();
     }
-    public function findAll(): array
+    public function findAll(string $etat='non_archiver'): array
     {
         $sql="select * from $this->tableName c,type_chambre t where t.id_type_chambre=c.id_type_chambre and etat=?";
-        return $this->database->executeSelect($sql,['non_archiver']);
+        return $this->database->executeSelect($sql,[$etat]);
+    }
+    public function findChambreByType(string $type,string $eat='non_archiver')
+    {
+        $sql = "select * from $this->tableName c,type_chambre t where c.id_type_chambre=t.id_type_chambre and t.nom_type_chambre=? and c.etat=?";
+        return $this->findBy($sql,[$type,$eat]);
+
     }
     public function findChambreArchiver(string $etat):array{
         $sql="select * from $this->tableName c,type_chambre t where t.id_type_chambre=c.id_type_chambre and etat=?";
+        return $this->database->executeSelect($sql,[$etat]);
+    }
+    public function CountChambreArchiver(string $etat):array{
+        $sql="select count(*) from $this->tableName c,type_chambre t where t.id_type_chambre=c.id_type_chambre and etat=?";
         return $this->database->executeSelect($sql,[$etat]);
     }
     public function findById(int $id): array

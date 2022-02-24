@@ -9,7 +9,7 @@ abstract class AbstractController implements ControllerInterface
     Session::start();
     $this->validator=new Validator();
   }
-  public function render(string $file,array $data=[],array $data2=[],array $data3=[],array $data4=[]):void
+  public function render(string $file,array $data=[],array $data2=[],array $data3=[],array $data4=[],array $data5=[]):void
   {
       extract($data);
       extract($data2);

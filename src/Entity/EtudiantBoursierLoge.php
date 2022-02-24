@@ -2,7 +2,7 @@
 namespace App\Entity;
 class EtudiantBoursierLoge extends EtudiantBoursier
 {
-    private int $chambre;
+    private Chambre $chambre;
     public function __construct()
     {
         parent::__construct();
@@ -12,34 +12,35 @@ class EtudiantBoursierLoge extends EtudiantBoursier
     {
        $array=array_values((array)$objet);
       // $array[]=$array[4];  
-       $array[]=$array[5];  
-       $array[]=$array[6];  
-       $array[]=$array[7];  
-       $array[]=$array[8];  
-       $array[]=$array[3];  
-       $array[]=$array[4]; 
-       $array[]=$array[1];   
-       $array[]='';  
-       $array[]='';  
-       $array[]=$array[0];  
-       $array[]=$array[2];
-    
-       unset($array[0]);
-       unset($array[1]);
+      // $array[]=$array[0]->getId();  
+      $array[]=$array[3]; 
+      $array[]=$array[4];   
+      $array[]=$array[1]->getId();  
+      $array[]=null;  
+      $array[]=null;  
+      $array[]=$array[0]->getId();  
+      $array[]=$array[2];  
+      $array[]=$array[5];  
+      unset($array[0]);
+      unset($array[1]);
       unset($array[2]);
       unset($array[3]);
       unset($array[4]);
-       unset($array[5]);
-       unset($array[6]);
-       unset($array[7]);
-       unset($array[8]);
-      return array_values($array);
+      unset($array[5]);
+
+       return array_values($array);
+    }
+
+   
+    public function affiche(): string
+    {
+        return parent::affiche().' '.$this->getChambre();
     }
 
     /**
      * Get the value of chambre
      *
-     * @return  int
+     * @return  Chambre
      */
     public function getChambre()
     {
@@ -49,18 +50,14 @@ class EtudiantBoursierLoge extends EtudiantBoursier
     /**
      * Set the value of chambre
      *
-     * @param  int  $chambre
+     * @param  Chambre  $chambre
      *
      * @return  self
      */
-    public function setChambre(int $chambre)
+    public function setChambre(Chambre $chambre)
     {
         $this->chambre = $chambre;
 
         return $this;
-    }
-    public function affiche(): string
-    {
-        return parent::affiche().' '.$this->getChambre();
     }
 }

@@ -21,7 +21,7 @@ class PersonneManager extends AbstractManager
 
     public function update(array $data):int
     {
-        $sql="update $this->tableName set 
+        $sql="update $this->tableName set nom=?,prenom=?,email=?,role=?,matricule=?,date_naissance=?,id_bourse=?,adresse=?,password=?,id_chambre=?,telephone=?
         where $this->primaryKey=?";
         return $this->database->executeUpdate($sql,$data);
     }

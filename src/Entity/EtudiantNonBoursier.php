@@ -19,7 +19,7 @@ class EtudiantNonBoursier extends Etudiant
        $array[]=null;  
 
        $array[]=$array[0];  
-       $array[]='';  
+       $array[]=null;  
        $array[]=null;  
        $array[]=$array[1];  
 

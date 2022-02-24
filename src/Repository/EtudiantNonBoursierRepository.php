@@ -9,5 +9,9 @@ class EtudiantNonBoursierRepository extends EtudiantRepository
     {
         parent::__construct();
     }
-    
+    public function findAll(): array
+    {
+        $sql = "select * from $this->tableName where adresse IS NOT NULL and id_chambre IS NULL and id_bourse IS NULL";
+        return $this->database->executeSelect($sql);
+    }
 }

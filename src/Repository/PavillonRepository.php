@@ -12,12 +12,10 @@ class PavillonRepository extends AbstractRepository
         $this->primaryKey="id_pavillon";
         parent::__construct();
     }
-    public function findAll($start=null,$num_page=null): array
+    public function findAll(): array
     {
         $sql="select * from $this->tableName";
-        if (!is_null($start) && !is_null($num_page)) {
-            $sql.=" limit $start,$num_page";
-        }
+       
         return $this->database->executeSelect($sql);
     }
     public function findById(int $id): array
@@ -26,4 +24,5 @@ class PavillonRepository extends AbstractRepository
         return $this->database->executeSelect($sql,[$id]);
 
     }
+    
 }

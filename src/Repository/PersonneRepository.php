@@ -18,12 +18,7 @@ class PersonneRepository extends AbstractRepository
         $sql="select * from $this->tableName ";
         return $this->database->executeSelect($sql);
     }
-    public function findById(int $id): array
-    {
-        $sql="select * from $this->tableName where $this->primaryKey = ?";
-        return $this->database->executeSelect($sql,[$id]);
-
-    }
+  
     public function findPersonneByLoginAndPassword(string $login,string $password):object|bool
     {
         $sql="select * from $this->tableName where email=? and password=?";

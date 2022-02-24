@@ -8,22 +8,22 @@ class EtudiantBoursierNonLoge extends EtudiantBoursier
         parent::__construct();
     }
    
+   
     public static function fromArray(object $objet): array
     {
        $array=array_values((array)$objet);
        $array[]=$array[4];  
        $array[]=$array[5];  
-       $array[]=$array[6];  
+       $array[]=$array[6]; 
        $array[]=$array[7];  
        $array[]=$array[2];  
        $array[]=$array[3];  
-       $array[]=$array[0];  
-       $array[]='';  
-       $array[]='';  
+       $array[]=$array[0]->getId();  
+       $array[]=null;  
+       $array[]=null;  
        $array[]=null; 
        $array[]=$array[1]; 
-    
-
+       
        unset($array[0]);
        unset($array[1]);
       unset($array[2]);

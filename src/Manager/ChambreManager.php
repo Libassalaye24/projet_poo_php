@@ -29,13 +29,13 @@ class ChambreManager extends AbstractManager
          return $this->database->executeUpdate($sql,$data);
     }
 
-    public function update(array $data):int
+   /*  public function update(array $data):int
     {
         $sql="update $this->tableName set num_etage=?,id_type_chambre=?,id_pavillon=?,etat=?
         where $this->primaryKey=?";
         return $this->database->executeUpdate($sql,$data);
-    }
-    public function update2(array $data):int
+    } */
+    public function update(array $data):int
     {
         $sql="update $this->tableName set num_chambre=?,num_etage=?,id_type_chambre=?,id_pavillon=?,etat=?
         where $this->primaryKey=?";

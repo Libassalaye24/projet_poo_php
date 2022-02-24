@@ -41,7 +41,7 @@ class SecurityController extends AbstractController
                   $this->redirect("security/login");
               }else {
                 Session::setSession(Role::KEY_SESSION_USER,$user);
-                $this->redirect("etudiant/showEtudiants");
+                $this->redirect("etudiant/showEtudiantBoursier");
               }
 
             }else {

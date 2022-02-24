@@ -40,10 +40,34 @@ class ChambreController extends AbstractController
   
     public function showChambre()
     {
-        $etat='non_archiver';
-        $chambres = $this->chambre->findChambreArchiver($etat);
-       //var_dump($chambres); die;
-        $this->render("chambre/liste.chambre.html.php",["chambres"=>$chambres]);
+       /*  $etat='non_archiver';
+        $chambres = $this->chambre->findChambreArchiver($etat); */
+        $e='non_archiver';
+        $pavillon = $this->pavillon->findAll();
+        //var_dump($pavillon); die;
+        $chambres = $this->chambre->findChambreArchiver($e);
+        if ($this->request->isPost()) {
+            extract($this->request->request());
+           
+            if(isset($etat)) {
+              //  var_dump($etat); die;
+                $chambres = $this->chambre->findChambreArchiver($etat); 
+                if ($type=='double' || $type=='perso') {
+                    $chamByType = $this->chambre->findChambreByType($type,$etat);
+                    $chambres = $chamByType;
+                 }
+                 /* if (isset($idPavillon)) {
+                     //die('true');
+                   $chamPav = $this->chambre->findChambreByPavillon((int)$idPavillon);
+                   $chambres = $chamPav;
+                 } */
+            }
+            
+        }
+      //  $chambres = $this->chambre->findChambreArchiver($e);
+
+        $post = $this->request->request();
+        $this->render("chambre/liste.chambre.html.php",["chambres"=>$chambres,'pavillons'=>$pavillon,'post'=>$post]);
     }
 
     public function showArchiveChambre()
@@ -57,24 +81,21 @@ class ChambreController extends AbstractController
         $pavillons=$this->pavillon->findAll();
         $typeChambres=$this->typeChambreRepository->findAll();
         $this->render("chambre/add.chambre.html.php",['pavillons'=>$pavillons],['typeChambres'=>$typeChambres]);
-
     }
 
     public function showUpdateChambre()
     {
         $id=$this->request->query();
-
         $typeChambres=$this->typeChambreRepository->findAll();
         $chamTypePav=$this->chambre->findChambreType((int)$id[1]);
         $chamPavillon=$this->chambre->findChambrePavillon((int)$id[1]);
         $pavillons=$this->pavillon->findAll();
-        //var_dump($id[1]); die;
         $this->render("chambre/add.chambre.html.php",['chamTypePav'=>$chamTypePav],['typeChambres'=>$typeChambres],['pavillons'=>$pavillons],['chamPavillon'=>$chamPavillon]);
     }
     public function showChambreByPavillon()
     {
-        $id=$this->request->formatQuery($this->request->query());
-        $chambres = $this->chambre->findChambreByPavillon((int) $id);
+        $id=$this->request->query();
+        $chambres = $this->chambre->findChambreByPavillon((int)$id[1]);
         $this->render("chambre/liste.ChambreByPavillon.html.php",["chambres"=>$chambres]);
     }
     public function addChambre()
@@ -85,7 +106,6 @@ class ChambreController extends AbstractController
         $this->validator->validNbr($num_etage,'numEtage');
         $this->validator->validChoice($type_chambre,'type_chambre');
         if ($this->validator->valid()) {
-            
             $inserChambre=new Chambre;
             $type=new TypeChambre;
             $pavillo=new Pavillon;
@@ -96,20 +116,26 @@ class ChambreController extends AbstractController
                         ->setNumEtage($num_etage)
                         ->setTypeChambre($type)
                         ->setEtat('non_archiver');
-            $inserChambre->setIdPavillon($pavillo);
-           
             if (empty($idChambre)) {
+                //ajout chmabre
                 if ($pavillon!='0') {
-                    $data=Chambre::fromArray2($inserChambre);
-                    $insert=$this->upChambre->insert($data);
+                    //si l'id du pavillon existe dans le formulaire
+                    $inserChambre->setIdPavillon($pavillo);
                 }else{
-                    $pav=Chambre::fromArray($inserChambre);
-                    $insert=$this->upChambre->insert($pav);
+                    // si l'id pavillon n'existe pas
+                    $inserChambre->setIdPavillon(null);
                 }
+                $data=Chambre::fromArray($inserChambre);
+                $insert=$this->upChambre->insert($data);
+
             }else {
-                 // $chambres=$this->chambre->findById($idChambre);
-                   $data=Chambre::fromArray3($inserChambre);
-                   $data[]=$idChambre;
+                //update chambre
+                  $chambres=$this->chambre->findById($idChambre);
+                   $inserChambre->setId($idChambre);
+                   $inserChambre->setIdPavillon($pavillo);
+                   $inserChambre->setNumChambre($chambres[0]->num_chambre);
+                   $inserChambre->setEtat($chambres[0]->etat);
+                   $data=Chambre::fromArrayUpdate($inserChambre);
                    $this->upChambre->update($data);
                
             }
@@ -132,6 +158,11 @@ class ChambreController extends AbstractController
             $this->redirect("chambre/showChambre");
         }
     }
+    /**
+     * Archiver et desarchiver chambre
+     *
+     * @return void
+     */
     public function archiveChambre()
     {
         if ($this->request->isPost()) {
@@ -150,7 +181,7 @@ class ChambreController extends AbstractController
                 ->setEtat($etat)
                 ->setId($chambre[0]->id_chambre);
             $update = Chambre::fromArrayUpdate($cham);
-            $this->upChambre->update2($update);
+            $this->upChambre->update($update);
             $this->redirect("chambre/showChambre");
 
         }   
