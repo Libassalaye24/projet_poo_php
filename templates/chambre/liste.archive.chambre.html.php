@@ -1,29 +1,5 @@
-
-<?php
-
-/* use App\Core\Pagination;
-
-$pag = new Pagination();
-$data = array("Hello","Rex","Prosper","Adrivan","Hehe");
-$numbers = $pag->Paginate($data,2);
-$result = $pag->fetchResult();
-foreach($result as $r){
-echo '<div>'.$r.'</div>';
- 
-}
- 
-foreach($numbers as $num){ 
-echo '<a href="classpagination.php?page='.$num.'">'.$num.'</a>';
-} */
-/* use App\Core\Pagination;
-
-    $pagine = new Pagination();
-    $numbers = $pagine->paginate(array_values((array)$chambres),1);
-    $rs = $pagine->fetResults(); */
-?>
-<!-- 
-<div class="container" style="margin-top: 3%;">
-        
+<!-- <div class="container" style="margin-top: 5%;">
+          
            <div class="row">
                <div class="col-md-6">
                     <form method="POST" action="<?php ?>" class="form-inline  " >
@@ -52,13 +28,12 @@ echo '<a href="classpagination.php?page='.$num.'">'.$num.'</a>';
                     </form>
                </div>
                <div class="col-md-6">
-                     <a name="" id="" class="btn btn-dark" href="<?=WEBROOT."chambre/showAddChambre"?>" role="button" style="float: right;right:auto"><i class="fa-solid fa-circle-plus"></i> Ajout Chambre</a>
+                     <a name="" id="" class="btn btn-dark" href="<?=WEBROOT."chambre/showAddChambre"?>" role="button" style="float: right;right:auto">Ajout Chambre</a>
                </div>
            </div>
     <div class="column mt-5">
     <div class="card shadow p-3">
-    <a name="" id="" class="btn ml-auto" href="<?=WEBROOT."chambre/showArchiveChambre"?>" role="button" style="">Chambres archivés <i class="fa-solid fa-circle-arrow-right"></i></a>
-
+    <a name="" id="" class="btn mr-auto" href="<?=WEBROOT."chambre/showChambre"?>" role="button" style=""><i class="fa-solid fa-circle-arrow-left"></i> Liste Chambres </a>
         <table class="table border border-secondary">
             <thead>
                 <tr class="border border-secondary">
@@ -66,8 +41,6 @@ echo '<a href="classpagination.php?page='.$num.'">'.$num.'</a>';
                     <th scope="col">Numero Chambre</th>
                     <th scope="col">Numero Etage</th>
                     <th scope="col">Type Chambre</th>
-                    <th scope="col">Etudiant</th>
-                    <th scope="col">Pavillon</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -79,23 +52,15 @@ echo '<a href="classpagination.php?page='.$num.'">'.$num.'</a>';
                     <td><?=$chambre->num_etage?></td>
                     <td><?=$chambre->nom_type_chambre?></td>
                     <td>
-                    <a name="" id="" class="btn btn-warning mr-2" href="<?=WEBROOT.'etudiant/showEtudiantByChambre/idChambre='.$chambre->id_chambre?>" role="button">Voir <i class="fa-solid fa-circle-plus"></i></a>
-
-                    </td>
-                    <td></td>
-                    <td>
                          <div class="ligne " style="display: flex;">
                              <a name="" id="" class="btn btn-warning mr-2" href="<?=WEBROOT.'chambre/showUpdateChambre/idChambre/'.$chambre->id_chambre?>" role="button"><i class="fa-solid fa-pen-to-square"></i>update</a>
-
-                             <?php if($chambre->etat=='non_archiver'): ?>
                              <form action="<?=WEBROOT.'chambre/archiveChambre'?>" method="POST">
                                 <input type="hidden" name="id" value="<?=$chambre->id_chambre?>">
                                 <button type="submit"   class="btn btn-danger" >
-                                <i class="fa-solid fa-box-archive"></i> archiver
+                                <i class="fa-solid fa-folder-open"></i> Desarchiver
                                      </span>
                                 </button>
                              </form>
-                             <?php endif; ?>
                         </div>
                     </td>
                 </tr>
@@ -104,7 +69,6 @@ echo '<a href="classpagination.php?page='.$num.'">'.$num.'</a>';
             </tbody>
         </table>
     </div>
-  
         <nav aria-label="...">
             <ul class="pagination pagination-lg justify-content-center  mt-4">
                <li class="page-item">
@@ -125,37 +89,34 @@ echo '<a href="classpagination.php?page='.$num.'">'.$num.'</a>';
             </ul>
         </nav>
     </div>
- 
-</div>
+ </div>
  -->
- <?php //var_dump($pavillons); die; ?>
  <div class="conatainer">
      <div class="column">
-            <form action="<?=WEBROOT.'chambre/showChambre'?>" class="form-inline" method="post">
+            <form action="" class="form-inline" method="post">
                 <div class="form-filtre" >
-                    <div class="selectCheck">
-                        <label for="">Etat</label>
-                        <select name="etat" id="">
-                            <option <?=(isset($post['etat']) && $post['etat']=='non_archiver') ? 'selected' : "" ?> value="non_archiver">Non Archiver</option>
-                            <option <?=(isset($post['etat']) && $post['etat']=='archiver') ? 'selected' : "" ?> value="archiver">Archiver</option>
-                        </select>
-                    </div>
                     <div class="selectCheck">
                         <label for="">Type Chambre</label>
                         <select name="type" id="">
                         <option value="">Choisir</option>
-                            <option <?=(isset($post['type']) && $post['type']=='double') ? 'selected' : "" ?> value="double">Collectif</option>
-                            <option <?=(isset($post['type']) && $post['type']=='perso') ? 'selected' : "" ?> value="perso">Personnel</option>
+                            <option value="double">Personnel</option>
+                            <option value="perso">Collectif</option>
                         </select>
                     </div>
-                    
+                    <div class="selectCheck">
+                        <label for="">Etat</label>
+                        <select name="bourse" id="">
+                        <option value="">Choisir</option>
+                            <option value="archiver">1</option>
+                            <option value="non archiver">1</option>
+                        </select>
+                    </div>
                     <div class="selectCheck">
                         <label for="">Pavillon</label>
-                        <select name="idPavillon" id="">
+                        <select name="bourse" id="">
                         <option value="">Choisir</option>
-                            <?php foreach($pavillons as $pav): ?>
-                            <option <?=(isset($post['idPavillon']) && $post['idPavillon']==$pav->id_pavillon) ? 'selected' : "" ?> value="<?=$pav->id_pavillon?>"><?=$pav->nom_pavillon?></option>
-                            <?php endforeach; ?>
+                            <option value="entier">1</option>
+                            <option value="demi">1</option>
                         </select>
                     </div>
                                 
@@ -165,15 +126,11 @@ echo '<a href="classpagination.php?page='.$num.'">'.$num.'</a>';
                 </div>
             </form>
          <div class="card">
-               <div class="row">
-                    <a href="<?=WEBROOT.'chambre/showAddChambre'?>" class="btnajout">
-                         <i class="fas fa-plus "></i>Ajout
+               <div class="float2">
+                    <a href="<?=WEBROOT."chambre/showChambre"?>" class="link">
+                        <i class="fa fa-arrow-left ml-2" aria-hidden="true"></i>
+                        Liste Chambres
                     </a>
-                    <a href="<?=WEBROOT."chambre/showArchiveChambre"?>" class="link">
-                        Chambres Archives
-                        <i class="fa fa-arrow-right ml-2" aria-hidden="true"></i>
-                    </a>
-                    
                </div>
              <table >
                  <thead>
@@ -200,20 +157,19 @@ echo '<a href="classpagination.php?page='.$num.'">'.$num.'</a>';
                                 Voir
                             </a>
                         </td>
-                        <td class="thbottom">
-                            <?=isset($chambre->id_pavillon) ? $chambre->nom_pavillon : "Pas de Pavillon" ?>
-                        </td>
+                        <td class="thbottom">P</td>
                         <td class="thbottom action">
                             <a href="<?=WEBROOT.'chambre/showUpdateChambre/idChambre/'.$chambre->id_chambre?>" class="btnUpdate">
                                 <i class="fas fa-edit edit"></i>
                                 Update
                             </a>
+                           
                             <form action="<?=WEBROOT.'chambre/archiveChambre'?>" method="POST">
                                 <input type="hidden" name="id" value="<?=$chambre->id_chambre?>">
                                 <button name="btn" class="btnArchive">
-                                   <i class="fas fa-file-archive archive"></i>
-                                   <?=$chambre->etat=='archiver' ? 'Desrchiver' : " Archiver" ?>
-                                </button>
+                                    <i class="fas fa-file-archive archive"></i>
+                                       Desarchiver
+                                 </button>
                              </form>
                         </td>
                     </tr>
