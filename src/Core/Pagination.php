@@ -1,42 +1,30 @@
 <?php 
 	namespace App\Core;
 
-/* 
-class Pagination
-{
-     private array $data;
+use LDAP\Result;
 
-    public function paginate(array $values,int $perPage)
-    {
-        $totalRecords = count($values);
-        if (isset($_GET['page'])) {
-            $currentPage = $_GET['page'];
-        }else {
-            $currentPage = 1;
-        }
-        $counts = ceil($totalRecords/$perPage);
-        $params1 = ($currentPage-1) * $perPage;
-        $this->data = array_slice($values,$params1,$perPage);
-        for ($i=0; $i <$counts ; $i++) { 
-            $numbers[]= $i;
-        }
-        return $numbers;
-    }
-    public function fetResults()
-    {
-        $valuesResult = $this->data;
-        return $valuesResult;
-    }
-}
- */
 class Pagination{
-    private $data=[];
+    public function __construct()
+    {
+        
+    }
+    function total_page($total_records,$nbrPage){
+        return ceil($total_records/$nbrPage);
+    }
+    function start_from($page,$nbrPage):int{
+        return ($page-1) * ($nbrPage);
+    }
+    /* public function __construct()
+    {
+        
+    } */
     function Paginate($values,$per_page){
+        $request = new Request;
+        $url =$request->query();
 
         $total_values = count($values);
-        
-        if(isset($_GET['page'])){
-            $current_page = $_GET['page'];
+        if(isset($url)){
+            $current_page = $url[1];
         }else{
             $current_page = 1;
         }
@@ -53,5 +41,7 @@ class Pagination{
         $resultsValues = $this->data;
         return $resultsValues;
     }
+ 
+
 }
 ?>

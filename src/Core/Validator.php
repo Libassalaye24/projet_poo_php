@@ -78,6 +78,19 @@
         $number.=$chfrs.''.$ltrs;
         return $number;
     }
+    public function genereMatricule():string{
+        $chiffre='0123456789';
+        $lettre="QWERTYUIOPLKJHGFDSAZXCVBNM";
+        $number=$ltrs=$chfrs="";
+       for ($i=0; $i < 3; $i++) { 
+           $chfrs.=$chiffre[rand(0,strlen($chiffre)-1)];
+       }
+       for ($i=0; $i < 2; $i++) { 
+           $ltrs.=$lettre[rand(0,strlen($chiffre)-1)];
+       }
+       $number.=$ltrs.''.$chfrs;
+       return $number;
+   }
       
      public function valid():bool
      {
@@ -88,6 +101,12 @@
      {
          return $this->erreurs;
      }
+     function total_page($total_records,$nbrPage){
+        return ceil($total_records/$nbrPage);
+    }
+    function start_from($page,$nbrPage):int{
+        return ($page-1) * ($nbrPage);
+    }
 
     // public function setEreurs()
      
