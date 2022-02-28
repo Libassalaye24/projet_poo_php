@@ -13,6 +13,7 @@ class Chambre implements EntityInterface {
     private Pavillon|null $idPavillon;
     private TypeChambre $typeChambre;
     private string $etat;
+    private string $occupee;
     
     
     //
@@ -60,6 +61,32 @@ class Chambre implements EntityInterface {
          unset($array[5]);
          return array_values($array);
     }
+    public static function fromArrayUp(object $objet):array
+    {
+        $array = array_values((array)$objet);
+        $array[] = $array[1];
+        $array[] = $array[0];
+        unset($array[1]);
+        unset($array[0]);
+        return array_values($array);
+    }
+/*     public static function fromArrayPC(object $objet):array
+    {
+        $array = array_values((array)$objet);
+        $array[] = $array[1];
+        $array[] = $array[2];
+        $array[] = $array[4]->getId();
+        $array[] = $array[3]->getId();
+        $array[] = $array[5];
+        $array[] = $array[0];
+        unset($array[0]);
+        unset($array[1]);
+        unset($array[2]);
+        unset($array[3]);
+        unset($array[4]);
+        unset($array[5]);
+        return array_values($array);
+    } */
     /* public static function fromArray(object $objet):array
     {
         $array=array_values((array)$objet);
@@ -296,6 +323,30 @@ class Chambre implements EntityInterface {
     public function setIdPavillon($idPavillon)
     {
         $this->idPavillon = $idPavillon;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of occupee
+     *
+     * @return  string
+     */
+    public function getOccupee()
+    {
+        return $this->occupee;
+    }
+
+    /**
+     * Set the value of occupee
+     *
+     * @param  string  $occupee
+     *
+     * @return  self
+     */
+    public function setOccupee(string $occupee)
+    {
+        $this->occupee = $occupee;
 
         return $this;
     }

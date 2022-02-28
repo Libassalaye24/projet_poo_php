@@ -73,20 +73,14 @@ class Pavillon implements EntityInterface
     public static function fromArray1(object $objet):array
     {
         $array=array_values((array)$objet);
-        $array[]=$array[1];
-        $array[]=$array[2];
-        $tc=array_values((array)$array[4]);
-        $array[]=$tc[0];
-        $P=array_values((array)$array[3]);
-        $array[]=$P[0];
-        $array[]=$array[5];
-        $array[]=$array[0];
+        $array[] = $array[1];
+        $array[] = $array[3];
+        $array[] = $array[0];
         unset($array[0]);
         unset($array[1]);
         unset($array[2]);
         unset($array[3]);
         unset($array[4]);
-        unset($array[5]);
         return array_values($array);
     }
     
