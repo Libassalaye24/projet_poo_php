@@ -43,8 +43,10 @@ class Database{
     {
         $stm=$this->pdo->prepare($sql);
         if (is_null($data)) {
+           // var_dump($stm); die;
             $stm->execute();
         }
+     //  var_dump($data); die;
         $stm->execute($data);
 
         return $single ? $stm->fetch(PDO::FETCH_OBJ) : $stm->fetchAll(PDO::FETCH_OBJ);
