@@ -25,16 +25,21 @@ class ChambreRepository extends AbstractRepository
 
     }
     public function findChambreArchiver(string $etat,$limit=null):array{
-        $sql="SELECT * FROM $this->tableName c INNER JOIN type_chambre t 
-            where t.id_type_chambre=c.id_type_chambre and c.etat=?";
+        $sql="SELECT * FROM $this->tableName c 
+                INNER JOIN type_chambre t 
+                   ON t.id_type_chambre=c.id_type_chambre WHERE c.etat=?
+                      ORDER BY $this->primaryKey DESC";
             if (!is_null($limit)) {
                 $sql.=" limit $limit,".PAR_PAGE;
             }
         return $this->database->executeSelect($sql,[$etat]);
     }
     public function findChambreArchiverAndPavi(int $pavillon,string $et='non_archiver',$limit=null):array{
-        $sql="SELECT * FROM $this->tableName c INNER JOIN pavillon p, type_chambre t where c.id_pavillon=p.id_pavillon 
-            and t.id_type_chambre=c.id_type_chambre and c.id_pavillon = ? and c.etat = ?";
+        $sql="SELECT * FROM $this->tableName c 
+                INNER JOIN pavillon p ON c.id_pavillon=p.id_pavillon 
+                    INNER JOIN type_chambre t ON  t.id_type_chambre=c.id_type_chambre 
+                        WHERE c.id_pavillon = ? 
+                            and c.etat = ?";
             if (!is_null($limit)) {
                 $sql.=" limit $limit,".PAR_PAGE;
             }
@@ -52,7 +57,9 @@ class ChambreRepository extends AbstractRepository
     }
     public function findChambreType(int $id):object|bool|array
     {
-        $sql="select * from $this->tableName c,type_chambre t where c.id_type_chambre=t.id_type_chambre and c.$this->primaryKey=?";
+        $sql="SELECT * from $this->tableName c 
+                INNER JOIN type_chambre t ON c.id_type_chambre=t.id_type_chambre 
+                    where  c.$this->primaryKey=?";
         return $this->findBy($sql,[$id]);
     }
     public function findChambrePavillon(int $id):object|bool|array

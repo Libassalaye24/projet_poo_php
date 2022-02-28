@@ -1,6 +1,8 @@
 const form = document.getElementById('form');
 const nomPavillon = document.getElementById('nomPavillon');
 const nbrEtage = document.getElementById('nbrEtage');
+const type_chambre = document.getElementById('type_chambre');
+const numEtage = document.getElementById('numEtage');
 const password = document.getElementById('password');
 const password2 = document.getElementById('password2');
 
@@ -90,15 +92,23 @@ function checkPasswordMatch(input1, input2) {
     }
 }
 
+function handleClick(myRadio) {
+    if (myRadio.value==='affecter') {
+        document.getElementById('affecter').style.display='block';
+        document.getElementById('creer').style.display='none';
+    }else if(myRadio.value==='creer') {
+        document.getElementById('creer').style.display='block';
+        document.getElementById('affecter').style.display='none';
 
+    }
+}
 
 
 
 //Even listeners--------------------------------------------------------
 form.addEventListener('submit',function(e){    
     var nb = CheckNumberMatch(nbrEtage);
-
-   var rq= checkRequired([nomPavillon, nbrEtage]);
+   var rq= checkRequired([nomPavillon, nbrEtage,numEtage,type_chambre]);
  //  var str = checkNameStringMatch(nomPavillon);
  //  var lg = checkLength(nomPavillon,4,20);
 /*  if (!nb) {

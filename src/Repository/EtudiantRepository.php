@@ -9,13 +9,13 @@ class EtudiantRepository extends PersonneRepository
     }
     public function findAll(): array
     {
-        $sql="SELECT * FROM $this->tableName WHERE role like ?";
+        $sql="SELECT * FROM $this->tableName WHERE role like ? ORDER BY `id_personne` DESC";
        
         return $this->database->executeSelect($sql,[$this->role]);
     }
     public function findAllLimit($limit=null): array
     {
-        $sql="SELECT * FROM $this->tableName WHERE role like ?";
+        $sql="SELECT * FROM $this->tableName WHERE role like ? ORDER BY `id_personne` DESC";
         if (!is_null($limit)) {
            $sql.=" LIMIT $limit,".PAR_PAGE;
         }

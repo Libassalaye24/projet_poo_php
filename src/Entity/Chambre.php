@@ -70,6 +70,25 @@ class Chambre implements EntityInterface {
         unset($array[0]);
         return array_values($array);
     }
+    public static function fromArrayPav(object $objet):array
+    {
+        $array = array_values((array)$objet);
+        $array[] = $array[0];
+        $array[] = (int)$array[1];
+        $array[]=$array[3]->getId();
+        $array[]=$array[2]->getId();
+        $array[] = $array[4];
+        unset($array[0]);
+        unset($array[1]);
+        unset($array[2]);
+        unset($array[3]);
+        unset($array[4]);
+       /*  $array[] = $array[1];
+        $array[] = $array[0];
+        unset($array[1]);
+        unset($array[0]); */
+        return array_values($array);
+    }
 /*     public static function fromArrayPC(object $objet):array
     {
         $array = array_values((array)$objet);

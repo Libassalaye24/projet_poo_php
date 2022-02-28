@@ -15,6 +15,7 @@ use App\Controllers\ErreurController;
     {
       // url est compose de controlleur et d'action
           $url = $this->request->getUrl();
+          
           $controllerClass="App\Controllers\\";
           $controllerClass.= empty($url[0])?"SecurityController":ucfirst($url[0])."Controller";
           $controllerAction= empty($url[1])?"login":$url[1];

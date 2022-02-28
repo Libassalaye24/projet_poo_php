@@ -100,9 +100,17 @@ $arrayError=[];
                 <small>Error message</small>
                 <p style="color: #dc3545;margin-top: 2%;"><?=isset($arrayError['nbr_etage'])?$arrayError['nbr_etage']: ""?></p>
             </div>
-           
-            <div class="checkbox">
-              <label class="label" style="margin-bottom: 5px;" for="">Chambre(facultatif)</label>
+            <div class="form-control" >
+                <label for="radio">Chambre(facultatif)</label>
+                    <select onclick="handleClick(this);" name="select" id="choice">
+                         <option value="0">Choisir</option>
+                         <option value="affecter">Affecter</option>
+                         <option value="creer">Creer un chambre</option>
+                    </select>
+                <small>Error message</small>
+            </div>
+            <div class="checkbox" id="affecter" style="display: none;">
+              <label class="label" style="margin-bottom: 5px;" for="">Chambre</label>
               <div class="check">
                 <?php foreach($chambres as $chambre): ?>
                     <label for="" class="form-check"> 
@@ -113,6 +121,25 @@ $arrayError=[];
                     
               </div>
             
+            </div>
+            <div style="display: none;"  id="creer">
+                <div class="form-control">
+                    <label for="type_chambre">Type Chambre</label>
+                    <select name="type_chambre" id="type_chambre">
+                        <option value="0">Choisir</option>
+                        <?php foreach($typeChambres as $type): ?>
+                            <option value="<?=$type->id_type_chambre?>" class=""><?=$type->nom_type_chambre?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <small>Error message</small>
+                    <p style="color: #dc3545;margin-top: 2%;"><?=isset($arrayError['type_chambre'])?$arrayError['type_chambre']: ""?></p>
+                </div>
+                <div class="form-control">
+                    <label for="NumEtage">Numero Etage</label>
+                    <input type="text" id="numEtage" class="input" value="<?=isset($chamTypePav[0]->num_etage) ? $chamTypePav[0]->num_etage : "" ?>" name="num_etage" placeholder="Enter Num Etage">
+                    <small>Error message</small>
+                    <p style="color: #dc3545;margin-top: 2%;"><?=isset($arrayError['numEtage'])?$arrayError['numEtage']: ""?></p>
+                </div>
             </div>
             <button name="button" type="submit" >Submit</button>
         </form>

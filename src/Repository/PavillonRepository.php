@@ -14,13 +14,13 @@ class PavillonRepository extends AbstractRepository
     }
     public function findAll(): array
     {
-        $sql="select * from $this->tableName";
+        $sql="SELECT * from $this->tableName ORDER BY $this->primaryKey DESC";
        
         return $this->database->executeSelect($sql);
     }
     public function findAllLimit($start,$nbrPage): array
     {
-        $sql="select * from $this->tableName limit $start,$nbrPage";
+        $sql="SELECT * from $this->tableName ORDER BY $this->primaryKey DESC limit $start,$nbrPage ";
        
         return $this->database->executeSelect($sql);
     }

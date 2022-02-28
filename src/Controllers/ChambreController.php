@@ -168,8 +168,14 @@ class ChambreController extends AbstractController
             $this->redirect("chambre/showChambre");
             
         }else {
-            Session::setSession('arrayError',$this->validator->getErreurs());
-            $this->redirect("chambre/showAddChambre");
+            if (empty($idChambre)) {
+                Session::setSession('arrayError',$this->validator->getErreurs());
+                $this->redirect("chambre/showAddChambre");
+            }else {
+                Session::setSession('arrayError',$this->validator->getErreurs());
+                $this->redirect("chambre/showAddChambre/idChambre/".$idChambre);
+            }
+            
         }
     }
     $this->redirect("security");

@@ -108,7 +108,7 @@
                         <td class="thbottom"><?=$etudiantChambre->date_naissance?></td>
                         <td class="thbottom"><?=($etudiantChambre->id_bourse==1) ? 'bourse_entier' : "demi_bourse" ?></td>
                         <td class="thbottom">
-                          <?=$etudiantChambre->num_chambre?>
+                          <?=$etudiantChambre->num_chambre." (".$etudiantChambre->nom_pavillon.")"?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

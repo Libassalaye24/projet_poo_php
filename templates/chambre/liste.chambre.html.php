@@ -41,6 +41,7 @@
                         <th scope="col">Pavillon</th>
                         <?php endif; ?>
                         <th scope="col">Etudiant</th>
+                        <th scope="col">Etat(Occupation)</th>
                         <th scope="col">Action</th>
                     </tr>
                  </thead>
@@ -59,6 +60,10 @@
                                 <i class="fas fa-plus "></i>
                                 Voir
                             </a>
+                        </td>
+                        <td class="thbottom">
+                          <?php $chambre->occupee=='true' ? $oc='Occupee' : $oc='Non occupee' ?>
+                          <?=$oc;?>
                         </td>
                       
                         <td class="thbottom action">
