@@ -24,9 +24,21 @@ class ChambreRepository extends AbstractRepository
         return $this->findBy($sql,[$type,$eat]);
 
     }
-    public function findChambreArchiver(string $etat):array{
-        $sql="select * from $this->tableName c,type_chambre t where t.id_type_chambre=c.id_type_chambre and etat=?";
+    public function findChambreArchiver(string $etat,$limit=null):array{
+        $sql="SELECT * FROM $this->tableName c INNER JOIN type_chambre t 
+            where t.id_type_chambre=c.id_type_chambre and c.etat=?";
+            if (!is_null($limit)) {
+                $sql.=" limit $limit,".PAR_PAGE;
+            }
         return $this->database->executeSelect($sql,[$etat]);
+    }
+    public function findChambreArchiverAndPavi(int $pavillon,string $et='non_archiver',$limit=null):array{
+        $sql="SELECT * FROM $this->tableName c INNER JOIN pavillon p, type_chambre t where c.id_pavillon=p.id_pavillon 
+            and t.id_type_chambre=c.id_type_chambre and c.id_pavillon = ? and c.etat = ?";
+            if (!is_null($limit)) {
+                $sql.=" limit $limit,".PAR_PAGE;
+            }
+        return $this->database->executeSelect($sql,[$pavillon,$et]);
     }
     public function CountChambreArchiver(string $etat):array{
         $sql="select count(*) from $this->tableName c,type_chambre t where t.id_type_chambre=c.id_type_chambre and etat=?";
@@ -50,17 +62,25 @@ class ChambreRepository extends AbstractRepository
     }
     public function findChambrePavillonNull()
     {
-        $sql="select * from $this->tableName where id_pavillon IS NULL ";
-        return $this->database->executeSelect($sql);
+        $sql="select * from $this->tableName where id_pavillon IS NULL and etat=?";
+        return $this->database->executeSelect($sql,['non_archiver']);
     }
     public function findChambrePavillonNotNull()
     {
-        $sql="select * from $this->tableName where id_pavillon IS NOT NULL and etat=?";
-        return $this->database->executeSelect($sql,['non_archiver']);
+        $sql="select * from $this->tableName c
+               INNER JOIN pavillon p,type_chambre t where c.id_pavillon=p.id_pavillon
+                 and t.id_type_chambre=c.id_type_chambre and c.etat like ? and c.occupee like ?";
+        return $this->database->executeSelect($sql,['non_archiver','false']);
     }
-    public function findChambreByPavillon(int $id)
+    public function findChambreByPavillon(int $id,$limit=null)
     {
-        $sql="select * from $this->tableName c,pavillon p,type_chambre t where t.id_type_chambre=c.id_type_chambre  and c.id_pavillon=p.id_pavillon and c.id_pavillon=?";
+        $sql="SELECT * FROM $this->tableName c INNER JOIN pavillon p, type_chambre t 
+                where c.id_pavillon=p.id_pavillon 
+                    and t.id_type_chambre=c.id_type_chambre 
+                        and c.id_pavillon = ?";
+        if (!is_null($limit)) {
+            $sql.=" limit $limit,".PAR_PAGE;
+        }
         return $this->database->executeSelect($sql,[$id]);
     }
 }

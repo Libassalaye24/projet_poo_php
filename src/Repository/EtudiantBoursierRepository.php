@@ -8,14 +8,20 @@ class  EtudiantBoursierRepository extends EtudiantRepository
     {
         parent::__construct();
     }
-     public function findEtuBoursier()
+     public function findEtuBoursier($limit = null)
      {
-         $sql="select * from $this->tableName e,bourse b where e.id_bourse=b.id_bourse and e.id_chambre IS NULL";
+         $sql="SELECT * FROM $this->tableName e 
+                INNER JOIN bourse b ON e.id_bourse=b.id_bourse 
+                    WHERE e.id_chambre IS NULL";
+        if (!is_null($limit)) {
+            $sql.=" LIMIT $limit,".PAR_PAGE;
+        }
          return $this->database->executeSelect($sql);
      }
      public function findEtuByTypeBourse(string $type)
      {
-         $sql = "select * from $this->tableName e,bourse b where e.id_bourse=b.id_bourse and b.type_bourse=?";
+         $sql = "SELECT * FROM $this->tableName e 
+                    INNER JOIN bourse b ON e.id_bourse=b.id_bourse WHERE  b.type_bourse=?";
          return $this->findBy($sql,[$type]);
      }
    

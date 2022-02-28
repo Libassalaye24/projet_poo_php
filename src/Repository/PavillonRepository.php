@@ -18,6 +18,12 @@ class PavillonRepository extends AbstractRepository
        
         return $this->database->executeSelect($sql);
     }
+    public function findAllLimit($start,$nbrPage): array
+    {
+        $sql="select * from $this->tableName limit $start,$nbrPage";
+       
+        return $this->database->executeSelect($sql);
+    }
     public function findById(int $id): array
     {
         $sql="select * from $this->tableName where $this->primaryKey = ?";

@@ -24,4 +24,5 @@ class PersonneRepository extends AbstractRepository
         $sql="select * from $this->tableName where email=? and password=?";
        return $this->findBy($sql,[$login,$password],true);
     }
+    
 }
