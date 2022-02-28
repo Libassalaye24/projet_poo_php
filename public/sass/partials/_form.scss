@@ -1,0 +1,220 @@
+@import "mixin";
+@import "variables";
+@import "responsive";
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container{
+    margin-top: 3%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: $shadow;
+    width: 80%;
+   
+}
+%form-control{
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    height: 60px;
+    background-color: #F6F6F6;
+    padding: 10px;
+    font-size: 14px;
+}
+.container-login{
+    @extend .container;
+    width: 50%;
+    margin-top: 10%;
+    box-shadow: $shadow-connexion;
+   background-color: $colorPrimary;
+    color: #fff;
+    .form-control .label{
+        color: #39ACE7;
+    }
+    .form-control input{
+        @extend %form-control;
+        background-color: $colorPrimary;
+        border: 2px solid $colorPrimary   ;
+        border-bottom: #39ACE7 2px solid;
+        color: #f0f0f0;
+
+    }
+}
+
+h2{
+    text-align: center;
+    margin: 0 0 20px;
+}
+
+.form{
+    padding: 30px 40px;
+}
+
+.form-control{
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative;
+}
+%displayBlock{
+    display: block;
+    margin-bottom: 5px;
+}
+.form-control label{
+    color: #777;
+    @extend %displayBlock;
+}
+
+
+.form-control .input {
+    @extend %form-control;
+}
+.checkbox{
+    position: relative;
+   
+}
+/////etu
+form .row{
+    display: flex;
+    .etu{
+        flex: 1;
+    }
+    
+}
+.etu .input {
+    @extend %form-control;
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    height: 60px;
+    background-color: #F6F6F6;
+    padding: 10px;
+    font-size: 14px;
+
+}
+.checkbox .check{
+    @extend %displayBlock;
+    display: flex;
+    input{
+        margin-left: 1%;
+        margin-top: 2px;
+    }
+    label{
+        margin-left: 1%;
+    }
+    margin-top: 2%
+}
+.checkbox .label{
+    @extend %displayBlock;
+}
+.form-control select{
+    @extend %form-control;
+    outline: 0;
+}
+.etu select{
+    @extend %form-control;
+    outline: 0;
+}
+.form-control .input:focus{
+    outline: 0;
+    border-color: #39ACE7;
+}
+%border-success{
+    border-color: $succes;
+}
+%border-error{
+    border-color: $error;
+}
+.form-control.success input{
+    @extend %border-success;
+}
+.form-control.success select{
+    @extend %border-success;
+}
+.form-control.error select{
+    @extend %border-error;
+}
+.form-control.error input{
+   @extend %border-error;
+}
+.etu.success input{
+    border-color: $succes;
+}
+.etu.error input{
+    border-color: $error;
+}
+.form-control small{
+    color: $error;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+}
+.etu small{
+    color: $error;
+    @extend %displayBlock;
+}
+.form-control.error small{
+    visibility: visible;
+}
+
+.form button{
+    cursor: pointer;
+    background-color: $colorPrimary;
+    border: 2px solid $colorPrimary;
+    border-radius: 4px;
+    color: #fff;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 20px;
+    width: 30%;
+    box-shadow: $shadow2;
+    
+}
+
+.form button:hover{
+    background-color: #39ACE7;
+    border: 2px solid #39ACE7;
+
+}
+.form .btn-login{
+    background-color: #39ACE7;
+    border: 2px solid #39ACE7;
+}
+
+@media #{$medium-up} {
+  
+    .form button{
+        cursor: pointer;
+        background-color: $colorPrimary;
+        border: 2px solid $colorPrimary;
+        border-radius: 4px;
+        color: #fff;
+        margin-right: auto;
+        margin-left: auto;
+        display: block;
+        font-size: 16px;
+        padding: 10px;
+        margin-top: 20px;
+        width: 100%;
+        box-shadow: $shadow2;
+        
+    }
+    .container-login{
+        width: 80%;
+        margin-top: 10%;
+        box-shadow: $shadow-connexion;
+        background-color: $colorPrimary;
+        color: #fff;
+        .form-control .label{
+            color: #39ACE7;
+        }
+    }
+
+}

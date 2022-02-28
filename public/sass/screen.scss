@@ -4,3 +4,35 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
+@import "compass/css3";
+@import "partials/header";
+@import "partials/cadreshadow";
+@import "partials/form";
+@import "partials/formfiltre";
+@import "partials/itemspaginate";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;1,500&family=Roboto+Mono&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   }
+   body {
+    font-family: 'Roboto Mono' , sans-serif;   
+    justify-content: center;
+    align-items: center;
+   }
+   a {
+    text-decoration: none;
+   }
+  .d-none{
+      display: none;
+  }
+ input[type=radio]{
+     cursor: pointer;
+ }
+  
+   li {
+    list-style: none;
+   }

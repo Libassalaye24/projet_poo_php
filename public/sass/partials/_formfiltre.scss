@@ -1,0 +1,38 @@
+
+
+.form-filtre{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    justify-content: space-around;
+}
+
+.selectCheck select{
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;    
+    background-color: #F6F6F6;
+    padding: 10px;
+    font-size: 14px;
+    width: 140px;
+    cursor: pointer;
+  
+}
+.selectCheck select option{
+    cursor: pointer;
+}
+.btn-valide{
+    background-color: $colorPrimary; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+    @include border-radius(5px);
+    &:hover{
+        background-color: $color2;
+    }
+
+}
+

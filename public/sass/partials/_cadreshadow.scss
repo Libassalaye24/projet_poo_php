@@ -1,0 +1,130 @@
+@import "mixin";
+.column{
+    margin-top: 5%;
+    
+
+    .card{
+        box-shadow: $shadow;
+        padding: 20px;
+        width: 90%;
+        border-collapse: collapse;
+        height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        .float{
+            margin-bottom: 8px;
+        }
+        .float1{
+            @extend .float;
+            float: right;
+        }
+        .float2{
+            @extend .float;
+            float: left;
+        }
+        .link{
+            color: $colorPrimary;
+        }
+        .row{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            h4{
+                margin-top: 10px;
+            }
+            a{
+                margin-right: 2%;
+            }
+        }
+        @include border-radius(10px);
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            border: 2px solid #152032;
+           @include border-radius(10px);
+            width: 100%;
+            td, th {
+                text-align: center;
+                border: 1px solid #dddddd;
+                padding: 13px;
+              }
+              
+              tr:nth-child(even) {
+                background-color: #dddddd;
+              }
+              .thbottom{
+                border-bottom: #BBB2B2 1px solid;
+                text-align: center;
+              }
+              thead{
+                  border: $colorPrimary 2px solid;
+                  tr th{
+                      font-weight: bold;
+                  }
+              }
+              .action{
+                  display: flex;
+                  form{
+                      margin-left: 1%;
+                  }
+              }
+             
+              
+        }
+          
+         .btn{
+            background-color: $colorPrimary; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px;
+            cursor: pointer;
+            @include border-radius(5px);
+           
+              
+        
+         }
+         .btn2{
+
+            &:hover{
+                background-color: $color2;
+            }
+         }
+         .btnUpdate{
+             @extend .btn;
+             background-color: $colorYellow;
+         }
+         .btnajout{
+             @extend .btn;
+         }
+         .btnajout{
+             @extend .btn;
+         }
+         .btnArchive{
+             @extend .btn;
+             background-color: $colorRed;
+            // display: flex;
+             
+         }
+     
+    }
+  
+
+}
+
+/* table{
+    border: #152032 2px solid ;
+    thead{
+
+        tr{
+            border-color: #152032;
+        }
+    }
+    .thbottom{
+        border-bottom: #BBB2B2;
+    }
+} */
+
