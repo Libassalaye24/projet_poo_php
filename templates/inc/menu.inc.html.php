@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">logo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,15 +6,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Etudiant
+      
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Liste Etudiants
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showEtudiantBoursier"?>">Etudiants Boursiers</a></li>
+            <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showEtudiantNBoursier"?>">Non Boursiers</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+         Ajouter Etudiants
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showEtudiants"?>">Liste Etudiant</a></li>
-            <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showAddEtudiantBoursier"?>">Boursier</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showAddEtudiantNBoursier"?>">Non Bourdier</a></li>
+            <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showAddEtudiantBoursierNLoge"?>">Boursier Non Loge</a></li>
+            <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showAddEtudiantBoursierLoge"?>">Boursier Loge</a></li>
+            <li><a class="dropdown-item" href="<?=WEBROOT."etudiant/showAddEtudiantNBoursier"?>">Non Boursier</a></li>
           </ul>
         </li>
   
@@ -68,7 +78,7 @@ ul li ul li {
         </li>
       
         <li class="nav-item">
-          <a class="nav-link " href="<?=WEBROOT."chambre/showChambre"?>">Chambre</a>
+          <a class="nav-link active" href="<?=WEBROOT."chambre/showChambre"?>">Chambre</a>
         </li>
       </ul>
       <div class="d-flex">
@@ -78,3 +88,31 @@ ul li ul li {
     </div>
   </div>
 </nav>
+ -->
+ <nav class="navbar">
+     <!-- LOGO -->
+     <!-- NAVIGATION MENU -->
+     <ul class="nav-links">
+       <!-- USING CHECKBOX HACK -->
+       <input type="checkbox" id="checkbox_toggle" />
+       <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+       <!-- NAVIGATION MENUS -->
+       <div class="menu">
+         <li><a href="/">Logo</a></li>
+         <li class="services">
+           <a href="<?=WEBROOT."etudiant/showEtudiantBoursier"?>" style="cursor: pointer;" >Etudiant</a>
+         </li>
+         <li><a href="<?=WEBROOT."pavillon/showPavillon"?>">Pavillon</a></li>
+         <li><a href="<?=WEBROOT."chambre/showChambre"?>">Chambre</a></li>
+       </div>
+     </ul>
+     <!-- <div class="logo">
+        <a href="http://">  Deconnexion</a>
+      </div> -->
+     <form action="<?=WEBROOT."security/logout"?>" method="POST">
+        <button type="submit" class="button">
+          Deconnexion
+        </button>
+     </form>
+
+   </nav>

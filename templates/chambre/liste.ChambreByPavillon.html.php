@@ -92,7 +92,7 @@
 </div>-->
 <div class="conatainer">
      <div class="column">
-            <form action="" class="form-inline" method="post">
+         <!--    <form action="" class="form-inline" method="post">
                 <div class="form-filtre" >
                     <div class="selectCheck">
                         <label for="">Type Chambre</label>
@@ -114,11 +114,12 @@
                        <button name="button" class="btn-valide" value="ok" type="submit" >Filtrer</button>
                     </div>
                 </div>
-            </form>
+            </form> -->
          <div class="card">
                <div class="row">
-                    <a href="<?=WEBROOT.'chambre/showAddChambre'?>" class="btnajout">
-                         <i class="fas fa-plus "></i>Ajout
+                    <a href="<?=WEBROOT."pavillon/showPavillon"?>" class="link">
+                        <i class="fa fa-arrow-left ml-2" aria-hidden="true"></i>
+                        Liste Pavillon
                     </a>
                  
                </div>
@@ -147,7 +148,7 @@
                                 Voir
                             </a>
                         </td>
-                        <td class="thbottom">P</td>
+                        <td class="thbottom"><?=$chambre->nom_pavillon?></td>
                         <td class="thbottom action">
                             <a href="<?=WEBROOT.'chambre/showUpdateChambre/idChambre/'.$chambre->id_chambre?>" class="btnUpdate">
                                 <i class="fas fa-edit edit"></i>
@@ -169,5 +170,23 @@
                     
             </table>
          </div>
+
+            <div class="p">
+                <div class="pagination">
+                    <?php if($page>=2): ?>
+                    <a  href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$id[1].'/&page=/'.$page-1?>" class="laquo">&laquo;</a>
+                   <?php endif; ?>
+                    <?php for($i=1;$i<=$total_page;$i++): ?>
+                        <?php if($i==$page): ?>
+                         <a class="active" href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$id[1].'/&page=/'.$i?>"><?=$i?></a>
+                         <?php else: ?>
+                        <a class="a" href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$id[1].'/&page=/'.$i?>"><?=$i?></a>
+                         <?php endif; ?>
+                    <?php endfor; ?>
+                    <?php if($page<$total_page): ?>
+                    <a href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$id[1].'/&page=/'.$page+1?>" class="laquo">&raquo;</a>
+                    <?php endif; ?>
+                </div>
+            </div>
      </div>
  </div>

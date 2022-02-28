@@ -93,36 +93,21 @@
  -->
  <div class="conatainer">
      <div class="column">
-            <form action="" class="form-inline" method="post">
+            <form action="<?=WEBROOT.'chambre/showArchiveChambre'?>" class="form-inline" method="post">
                 <div class="form-filtre" >
-                    <div class="selectCheck">
-                        <label for="">Type Chambre</label>
-                        <select name="type" id="">
-                        <option value="">Choisir</option>
-                            <option value="double">Personnel</option>
-                            <option value="perso">Collectif</option>
-                        </select>
-                    </div>
-                    <div class="selectCheck">
-                        <label for="">Etat</label>
-                        <select name="bourse" id="">
-                        <option value="">Choisir</option>
-                            <option value="archiver">1</option>
-                            <option value="non archiver">1</option>
-                        </select>
-                    </div>
-                    <div class="selectCheck">
-                        <label for="">Pavillon</label>
-                        <select name="bourse" id="">
-                        <option value="">Choisir</option>
-                            <option value="entier">1</option>
-                            <option value="demi">1</option>
-                        </select>
-                    </div>
-                                
-                    <div class="valide">
-                       <button name="button" class="btn-valide" value="ok" type="submit" >Filtrer</button>
-                    </div>
+                   <div class="selectCheck">
+                       <label for="">Pavillon</label>
+                       <select name="pav" id="">
+                       <option value="">Choisir</option>
+                       <?php foreach($pavillons as $pavillon): ?>
+                           <option <?=(isset($post['pav']) && $post['pav']==$pavillon->id_pavillon) ? 'selected' : "" ?> value="<?=$pavillon->id_pavillon?>"><?=$pavillon->nom_pavillon?></option>
+                       <?php endforeach; ?>
+                       </select>
+                   </div>
+                           
+                   <div class="valide">
+                      <button name="button" class="btn-valide" value="ok" type="submit" >Filtrer</button>
+                   </div>
                 </div>
             </form>
          <div class="card">
@@ -139,8 +124,10 @@
                         <th scope="col">Numero Chambre</th>
                         <th scope="col">Numero Etage</th>
                         <th scope="col">Type Chambre</th>
-                        <th scope="col">Etudiant</th>
+                        <?php if(isset($post['button'])): ?>
                         <th scope="col">Pavillon</th>
+                        <?php endif; ?>
+                        <th scope="col">Etudiant</th>
                         <th scope="col">Action</th>
                     </tr>
                  </thead>
@@ -151,13 +138,15 @@
                         <td class="thbottom"><?=$chambre->num_chambre?></td>
                         <td class="thbottom"><?=$chambre->num_etage?></td>
                         <td class="thbottom"><?=$chambre->nom_type_chambre?></td>
+                        <?php if(isset($post['button'])): ?>
+                            <td class="thbottom"><?=$chambre->nom_pavillon?></td>
+                        <?php endif; ?>
                         <td class="thbottom">
                         <a href="<?=WEBROOT.'etudiant/showEtudiantByChambre/idChambre/'.$chambre->id_chambre?>" class="btn">
                                 <i class="fas fa-plus "></i>
                                 Voir
                             </a>
                         </td>
-                        <td class="thbottom">P</td>
                         <td class="thbottom action">
                             <a href="<?=WEBROOT.'chambre/showUpdateChambre/idChambre/'.$chambre->id_chambre?>" class="btnUpdate">
                                 <i class="fas fa-edit edit"></i>
@@ -178,6 +167,23 @@
                     
             </table>
          </div>
+             <div class="p <?= isset($post['button']) ? 'd-none' : "" ?>">
+                <div class="pagination">
+                    <?php if($page>=2): ?>
+                    <a  href="<?=WEBROOT.'chambre/showArchiveChambre/&page=/'.$page-1?>" class="laquo">&laquo;</a>
+                   <?php endif; ?>
+                    <?php for($i=1;$i<=$total_page;$i++): ?>
+                        <?php if($i==$page): ?>
+                         <a class="active" href="<?=WEBROOT.'chambre/showArchiveChambre/&page=/'.$i?>"><?=$i?></a>
+                         <?php else: ?>
+                        <a class="a" href="<?=WEBROOT.'chambre/showArchiveChambre/&page=/'.$i?>"><?=$i?></a>
+                         <?php endif; ?>
+                    <?php endfor; ?>
+                    <?php if($page<$total_page): ?>
+                    <a href="<?=WEBROOT.'chambre/showArchiveChambre/&page=/'.$page+1?>" class="laquo">&raquo;</a>
+                    <?php endif; ?>
+                </div>
+            </div>
      </div>
  </div>
 

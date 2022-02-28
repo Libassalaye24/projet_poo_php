@@ -6,17 +6,18 @@ $arrayError=[];
       Session::removeKey("arrayError");
   }
  ?>
-
+<!-- 
 <div class="container mt-5">
 
 <div class="login-box">
+<h4>Login</h4>
+
 <?php if(isset($arrayError['connexion'])): ?>
-      <div class="alert alert-danger" role="alert">
+      <div class="alert alert-danger " role="alert">
       <strong><?=$arrayError['connexion']?></strong>
       </div>
-<?php endif; ?>
-  <h2>Login</h2>
-  <form method="POST" action="<?=WEBROOT."security/seConnecter"?>">
+<?php endif; ?> <br>
+  <form class="mt-2" method="POST" action="<?=WEBROOT."security/seConnecter"?>">
     <div class="user-box">
       <input type="text" name="login" >
       <label>Login</label>
@@ -28,7 +29,10 @@ $arrayError=[];
       <small id="" class="form-text text-danger mb-3" style="margin-top: -3%;"><?=isset($arrayError['password']) ? $arrayError['password'] : "";?></small>
     </div>
    
-    <button type="submit" class="btn btn-primary color-white" name="btn">Valider</button>
+    <div class="row">
+    <input type="submit" class="btn btn-primary color-white ml-auto mr-auto w-50" style="margin: 0;background-color:#39ace7" name="btn" value="Valider">
+
+    </div>
   </form>
 </div>
 </div>
@@ -47,7 +51,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
+  width: 450px;
   padding: 40px;
   transform: translate(-50%, -50%);
   background: #152032;
@@ -56,7 +60,7 @@ body {
   border-radius: 10px;
 }
 
-.login-box h2 {
+.login-box h4 {
   margin: 0 0 30px;
   padding: 0;
   color: #fff;
@@ -71,7 +75,7 @@ body {
   width: 100%;
   padding: 10px 0;
   font-size: 16px;
-  color: #fff;
+  color: #39ace7;
   margin-bottom: 30px;
   border: none;
   border-bottom: 1px solid #fff;
@@ -203,3 +207,27 @@ body {
 }
 
 </style>
+ -->
+ <div class="body">
+ <div class="container-login">
+        <form class="form" method="POST" action="<?=WEBROOT.'security/seConnecter'?>" id="form">
+            <!-- <h2>Register With Us</h2> -->
+            <h2>Se connecter</h2>
+            <div class="form-control">
+                <label class="label" for="email">Email</label>
+                <input type="text" id="email" class="input" name="login" placeholder="Enter Email">
+                <small>Error message</small>
+                <p style="color: #dc3545;font-size: 15px;margin-top:2%"><?=isset($arrayError['login']) ? $arrayError['login'] : "";?></p>
+
+            </div>
+            <div class="form-control">
+                <label class="label" for="password">Password</label>
+                <input type="password" id="" class="input" name="password" placeholder="Enter Password">
+                <small>Error message </small>
+                <p style="color: #dc3545;font-size: 15px;margin-top:2%"><?=isset($arrayError['password']) ? $arrayError['password'] : "";?></p>
+            </div>
+           
+            <button name="button" class="btn-login" value="Valider" type="submit" >Se connecter</button>
+        </form>
+    </div>
+</div>

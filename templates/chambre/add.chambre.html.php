@@ -75,10 +75,10 @@ $arrayError=[];
         <form class="form" method="POST" action="<?=WEBROOT.'chambre/addChambre'?>" id="form">
            <input type="hidden" name="idChambre" value="<?=isset($chamTypePav[0]->id_chambre) ? $chamTypePav[0]->id_chambre : "" ?>">
             <!-- <h2>Register With Us</h2> -->
-            <h2>Ajout Chambre</h2>
+            <h2><?=isset($chamTypePav[0]->id_chambre) ? "Modifier" : "Ajout"?> Chambre</h2>
             <div class="form-control">
                 <label for="type_chambre">Type Chambre</label>
-                  <select name="type_chambre" id="">
+                  <select name="type_chambre" id="type_chambre">
                       <option value="<?=isset($chamTypePav[0]->id_type_chambre) ? $chamTypePav[0]->id_type_chambre : "0" ?>"><?=isset($chamTypePav[0]->id_type_chambre) ? ucfirst($chamTypePav[0]->nom_type_chambre) : "Choisir" ?></option>
                       <?php foreach($typeChambres as $type): ?>
                         <option value="<?=$type->id_type_chambre?>" class="<?=($chamTypePav[0]->id_type_chambre==$type->id_type_chambre) ? 'd-none' : "" ?>" ><?=$type->nom_type_chambre?></option>
@@ -105,7 +105,8 @@ $arrayError=[];
                 <small>Error message</small>
             </div>
            
-            <button name="button" type="submit" >Submit</button>
+            <button name="button" id="button" type="submit" >Submit</button>
         </form>
     </div>
 </div>
+<script src="<?=WEBROOT.'/js/chambre.js'?>"></script>
