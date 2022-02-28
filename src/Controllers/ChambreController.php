@@ -40,41 +40,56 @@ class ChambreController extends AbstractController
   
     public function showChambre()
     {
-       /*  $etat='non_archiver';
-        $chambres = $this->chambre->findChambreArchiver($etat); */
+        $get = $this->request->query();
         $e='non_archiver';
         $pavillon = $this->pavillon->findAll();
-        //var_dump($pavillon); die;
         $chambres = $this->chambre->findChambreArchiver($e);
+        if (isset($get[1])) {
+            $page=$get[1];
+        }else {
+            $page=1;
+        }
+        $totalRecords = count($chambres);
+        $total_page = $this->validator->total_page($totalRecords,PAR_PAGE);
+        $start_from= $this->validator->start_from($page,PAR_PAGE);
+        $chambres = $this->chambre->findChambreArchiver($e,$start_from);
+
         if ($this->request->isPost()) {
             extract($this->request->request());
-           
-            if(isset($etat)) {
-              //  var_dump($etat); die;
-                $chambres = $this->chambre->findChambreArchiver($etat); 
-                if ($type=='double' || $type=='perso') {
-                    $chamByType = $this->chambre->findChambreByType($type,$etat);
-                    $chambres = $chamByType;
-                 }
-                 /* if (isset($idPavillon)) {
-                     //die('true');
-                   $chamPav = $this->chambre->findChambreByPavillon((int)$idPavillon);
-                   $chambres = $chamPav;
-                 } */
-            }
-            
+
+           if (isset($button)) {
+               $chambres = $this->chambre->findChambreArchiverAndPavi((int)$pav);
+           }            
         }
-      //  $chambres = $this->chambre->findChambreArchiver($e);
 
         $post = $this->request->request();
-        $this->render("chambre/liste.chambre.html.php",["chambres"=>$chambres,'pavillons'=>$pavillon,'post'=>$post]);
+        $this->render("chambre/liste.chambre.html.php",["chambres"=>$chambres,'pavillons'=>$pavillon,'post'=>$post,'total_page'=>$total_page,'page'=>$page]);
     }
 
     public function showArchiveChambre()
     {
+        $get = $this->request->query();
         $etat='archiver';
+        $post = $this->request->request();
+        $pavillon = $this->pavillon->findAll();
         $chambres = $this->chambre->findChambreArchiver($etat);
-        $this->render("chambre/liste.archive.chambre.html.php",["chambres"=>$chambres]);
+        if (isset($get[1])) {
+            $page=$get[1];
+        }else {
+            $page=1;
+        }
+        $totalRecords = count($chambres);
+        $total_page = $this->validator->total_page($totalRecords,PAR_PAGE);
+        $start_from= $this->validator->start_from($page,PAR_PAGE);
+        $chambres = $this->chambre->findChambreArchiver($etat,$start_from);
+        if ($this->request->isPost()) {
+            extract($this->request->request());
+
+           if (isset($button)) {
+               $chambres = $this->chambre->findChambreArchiverAndPavi((int)$pav,$etat);
+           }            
+        }
+        $this->render("chambre/liste.archive.chambre.html.php",["chambres"=>$chambres,'pavillons'=>$pavillon,'post'=>$post,'total_page'=>$total_page,'page'=>$page]);
     }
     public function showAddChambre()
     {
@@ -96,7 +111,18 @@ class ChambreController extends AbstractController
     {
         $id=$this->request->query();
         $chambres = $this->chambre->findChambreByPavillon((int)$id[1]);
-        $this->render("chambre/liste.ChambreByPavillon.html.php",["chambres"=>$chambres]);
+        $totalRecords = count((array)$chambres);
+        //$get = $id[3];
+        $total_page = $this->validator->total_page($totalRecords,PAR_PAGE);
+            if (isset($id[3])) {
+                $page=$id[3];
+            }else {
+                $page=1;
+            }
+        $start_from= $this->validator->start_from($page,PAR_PAGE);
+        $chambres = $this->chambre->findChambreByPavillon((int)$id[1],$start_from);
+    
+        $this->render("chambre/liste.ChambreByPavillon.html.php",["chambres"=>$chambres,'total_page'=>$total_page,'page'=>$page,"id"=>$id]);
     }
     public function addChambre()
     {
@@ -200,4 +226,8 @@ class ChambreController extends AbstractController
     
 
 }
+}else {
+    $secure = new SecurityController;
+    $secure->redirect("security");
+
 }

@@ -17,6 +17,7 @@ use App\Repository\ChambreRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\PersonneRepository;
 use App\Entity\EtudiantBoursierNonLoge;
+use App\Manager\ChambreManager;
 use App\Manager\EtudiantNBoursierManager;
 use App\Repository\EtudiantBoursierRepository;
 use App\Repository\EtudiantNonBoursierRepository;
@@ -32,7 +33,7 @@ class EtudiantController extends AbstractController
     private ChambreRepository $chambreRepo;
     private BourseRepository $bourseRepo;
     private EtudiantNonBoursierRepository $eNb;
-
+    private ChambreManager $upCham;
     public function __construct()
     {
         parent::__construct();
@@ -44,6 +45,7 @@ class EtudiantController extends AbstractController
         $this->eBl=new EtudiantBoursierLogeRepository;
         $this->eBs=new EtudiantBoursierRepository;
         $this->eNb = new EtudiantNonBoursierRepository;
+        $this->upCham = new ChambreManager;
     }
     /**
      * voir tous les etudiants
@@ -58,9 +60,21 @@ class EtudiantController extends AbstractController
     }
     public function showEtudiantBoursier()
     {
-        $EB=$this->eBs->findEtuBoursier();
+        $get = $this->request->query();
+        $EtuAll=$this->etudiant->findAll();
+        $EB = $this->eBs->findEtuBoursier();
         $ENB=$this->eNb->findAll();
-        $etudiant=$EB;
+        $etudiant=$EtuAll;
+        $totalRecords = count($etudiant);
+        $total_page = $this->validator->total_page($totalRecords,PAR_PAGE);
+        if (isset($get[1])) {
+            $page=$get[1];
+        }else {
+            $page=1;
+        }
+        $start_from= $this->validator->start_from($page,PAR_PAGE);
+        $etudiant =$this->etudiant->findAllLimit($start_from);
+        
         if ($this->request->isPost()) {
             extract($this->request->request());
             $EBbyTypeBourse = $this->eBs->findEtuByTypeBourse($bourse);
@@ -76,10 +90,12 @@ class EtudiantController extends AbstractController
             }elseif ($type=='loge') {
                 $etudiant= $EBL;
             }
+           
             
         }
         $post = $this->request->request();
-        $this->render("etudiant/liste.etudiantBoursier.html.php",["etudiant"=>$etudiant],['post'=>$post]);
+       // var_dump($etudiant); die;
+        $this->render("etudiant/liste.etudiantBoursier.html.php",["etudiant"=>$etudiant,'total_page'=>$total_page,'page'=>$page],['post'=>$post]);
     }
     public function filtreEtudiant()
     {
@@ -232,7 +248,8 @@ class EtudiantController extends AbstractController
     {
         $id = $this->request->query();
         //var_dump($id);
-        $chambres=$this->chambreRepo->findAll();
+        
+        $chambres=$this->chambreRepo->findChambrePavillonNotNull();
         return $this->render("etudiant/affecter.chambre.html.php",['chambres'=>$chambres],['id'=>$id]);
     }
     /**
@@ -249,10 +266,26 @@ class EtudiantController extends AbstractController
             $this->validator->validChoice($idChambre,'chambre');
             if ($this->validator->valid()) {
                 $pers = new PersonneRepository;
+                $chambre = new Chambre;
+               // var_dump($count[0]); die;
+               $etuLoge = $this->eBl->findEtuChaType();
+               $typCham = $etuLoge[0]->nom_type_chambre;
+               $cpt = 0;
+               foreach ($etuLoge as $student) {
+                   if ($student->id_chambre == $idChambre) {
+                     $cpt++;
+                   }
+               }
+               if (($typCham=='perso' && $cpt==1) || ($typCham=='double' && $cpt==2)) {
+                    $chambre->setOccupee('true')
+                            ->setId($idChambre);
+                    $upOccup = $chambre->fromArrayUp($chambre); 
+                    $upC = $this->upCham->updateOccupation($upOccup);
+               }
+            //   die('true');
                 $user = $pers->findById((int)$idEtudiant);
                 $etu=new EtudiantBoursierLoge;
                 $etuManager=new PersonneManager;
-                $chambre = new Chambre;
                 $bourseEtu=new Bourse;
                 $chambre->setId($idChambre);
                 $bourseEtu->setId($user[0]->id_bourse);
@@ -265,8 +298,8 @@ class EtudiantController extends AbstractController
                     ->setDateNaissance($user[0]->date_naissance); 
                 $etu->setBourse($bourseEtu);
                 $etu->setChambre($chambre);
+
                 $insert = $etu->fromArray($etu);
-           // var_dump($insert); die;
                 $etuManager->update($insert);
                 $this->redirect("etudiant/showEtudiantBoursier");
 
@@ -294,20 +327,11 @@ class EtudiantController extends AbstractController
             $this->validator->valideFieldMail($email,'email');
           $this->validator->valideNumberCall($telephone,'telephone');
             $this->validator->isVide($date_naissance,'date_naissance');
-           //$this->validator->validChoice($bourse,'bourse');
-            /* if (isset($adresse)) {
-               
-                $this->validator->isVide($adresse,'adresse');
-            }
-            if($bourse=='0'){
-                var_dump($this->request->request());
-                die('bourse');
-                $this->validator->validChoice($bourse,'bourse');
-            } */
+           
             if ($this->validator->valid()) {
-                $matricule=uniqid();
+                $matricule=$this->validator->genereMatricule();
                 $etuManager=new EtudiantManager;
-                if (isset($adresse) && $bourse=='0' ) {
+                if ($myRadio=='notbourse') {
                     $etu=new EtudiantNonBoursier;
                     $etu->setNom($nom)
                         ->setPrenom($prenom)
@@ -317,11 +341,10 @@ class EtudiantController extends AbstractController
                         ->setDateNaissance($date_naissance); 
                     $etu->setAdresse($adresse);
                     $test = $etu->fromArray($etu);
-                    var_dump($this->request->request()); die("adresse");
-                 //      var_dump($test); die;
+                  //  var_dump($this->request->request()); die;
                     $etuManager->insert($test);
                 }
-                if($bourse!='0'){
+                if($myRadio=='bourse'){
                   
                     $etu=new EtudiantBoursierNonLoge;
                     $bourseEtu=new Bourse;
@@ -337,7 +360,6 @@ class EtudiantController extends AbstractController
                         ->setDateNaissance($date_naissance); 
                     $etu->setBourse($bourseEtu);
                     $main = $etu->fromArray($etu);
-                  //  var_dump($this->request->request()); die('bourse');
                     $etuManager->insert($main);
                 }
                 $this->redirect("etudiant/showEtudiantBoursier");
@@ -359,4 +381,8 @@ class EtudiantController extends AbstractController
         }
     }
 }
+}else {
+    $secure = new SecurityController;
+    $secure->redirect("security");
+
 }
