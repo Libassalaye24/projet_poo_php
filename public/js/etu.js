@@ -7,7 +7,7 @@ const date = document.getElementById('dateNaissance');
 const myRadio = document.getElementById('myRadio');
 const adresse = document.getElementById('adresse');
 const bourse = document.getElementById('bourse');
-const radio1 = document.getElementById('myRadio1');
+const radio1 = document.getElementById('type');
 const radio2 = document.getElementById('myRadio2');
 
 
@@ -77,12 +77,14 @@ function checkRequired(inputArray){// Tester si les champs ne sont pas vides
 //
 
 //
-function CheckRadio(radio1,radio2) {//
+function CheckRadio(radio) {//
     var bool = false;
-    if (radio1.checked===false && radio2.checked===false) {
-        showError(radio1,`C'est obligatoire`);
+    if (radio.selected===false) {
+        showError(radio,`C'est obligatoire`);
+        alert("enter");
     }else{
         bool = true;
+       
     }
     return bool;
 }
@@ -152,8 +154,8 @@ function handleClick(myRadio) {
 form.addEventListener('submit',function(e){
    //Bloquer la soumission du formulaire
    //var rq=Boolean;
-   var rd = CheckRadio(radio1,radio2);
- var bool = checkRequired([date,adresse,bourse,prenom,nom,telephone,email]);
+   var rd = CheckRadio(radio1);
+ var bool = checkRequired([date,adresse,bourse,prenom,nom,telephone,email,radio1]);
  var Tl = CheckNumberMatch(telephone);
  var b = checkEmail(email);
 
