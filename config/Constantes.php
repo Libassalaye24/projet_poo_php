@@ -8,6 +8,7 @@
     define("VALIDE_NUMBER","#^(\+|00)?(221)?(77|70|75|77|78|76)[0-9]{7}$#");
     define("VALIDE_PASSWORD","#^[a-zA-Z0-9@]{4,15}$#");
     define("VALIDE_USERNAME","#^[A-Z][a-zA-Z0-9]{5,}$#");
+    define("PAR_PAGE",3);
  // define("PATH_DATA",ROOT."data".DIRECTORY_SEPARATOR);
 //  define("PATH_ROUTE",ROOT."router".DIRECTORY_SEPARATOR);
   //Dossier Public
