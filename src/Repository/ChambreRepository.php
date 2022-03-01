@@ -74,17 +74,18 @@ class ChambreRepository extends AbstractRepository
     }
     public function findChambrePavillonNotNull()
     {
-        $sql="select * from $this->tableName c
-               INNER JOIN pavillon p,type_chambre t where c.id_pavillon=p.id_pavillon
-                 and t.id_type_chambre=c.id_type_chambre and c.etat like ? and c.occupee like ?";
+        $sql="SELECT * from $this->tableName c
+               INNER JOIN pavillon p ON c.id_pavillon=p.id_pavillon 
+                  INNER JOIN type_chambre t ON t.id_type_chambre=c.id_type_chambre
+                       WHERE c.etat like ? and c.occupee like ?";
         return $this->database->executeSelect($sql,['non_archiver','false']);
     }
     public function findChambreByPavillon(int $id,$limit=null)
     {
-        $sql="SELECT * FROM $this->tableName c INNER JOIN pavillon p, type_chambre t 
-                where c.id_pavillon=p.id_pavillon 
-                    and t.id_type_chambre=c.id_type_chambre 
-                        and c.id_pavillon = ?";
+        $sql="SELECT * FROM $this->tableName c 
+                INNER JOIN pavillon p ON c.id_pavillon=p.id_pavillon 
+                    INNER JOIN type_chambre t ON t.id_type_chambre=c.id_type_chambre 
+                        WHERE c.id_pavillon = ?";
         if (!is_null($limit)) {
             $sql.=" limit $limit,".PAR_PAGE;
         }

@@ -65,7 +65,7 @@
 
                             <a href="<?=WEBROOT.'etudiant/showAffecterChambre/idEtudiant/'.$etu->id_personne?>" class="btn">
                                 <i class="fas fa-plus "></i>
-                                Affceter
+                                Affecter
                             </a>
                         <?php elseif(isset($etu->id_chambre)): ?>
                             <p style="padding: 10px;"><?=isset($post['type']) && $post['type']=='loge' ? $etu->num_chambre.' ('.$etu->nom_pavillon.')' : "Loge" ?></p>

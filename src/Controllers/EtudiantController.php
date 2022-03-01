@@ -248,7 +248,6 @@ class EtudiantController extends AbstractController
     {
         $id = $this->request->query();
         //var_dump($id);
-        
         $chambres=$this->chambreRepo->findChambrePavillonNotNull();
         return $this->render("etudiant/affecter.chambre.html.php",['chambres'=>$chambres],['id'=>$id]);
     }

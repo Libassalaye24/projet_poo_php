@@ -88,18 +88,18 @@ $arrayError=[];
                 <input type="hidden" name="idPavillon" value="<?=isset($pavillons[0]->id_pavillon) ? $pavillons[0]->id_pavillon : "0" ?>">
             <!-- <h2>Register With Us</h2> -->
             <h2><?=isset($pavillons[0]->id_pavillon) ? "Modifier" : "Ajout"?> Pavillon</h2>
-            <div class="form-control">
-                <label for="nomPavillon">Nom Pavillon</label>
-                <input type="text" id="nomPavillon" class="input" value="<?=isset($pavillons[0]->nom_pavillon) ? $pavillons[0]->nom_pavillon : "" ?>" name="nom_pavillon" placeholder="Enter Nom Pavillon">
-                <small>Error message</small>
-                <p style="color: #dc3545;margin-top: 2%;"><?=isset($arrayError['nom_pavillon'])?$arrayError['nom_pavillon']: ""?></p>
-            </div>
-            <div class="form-control">
-                <label for="nbrEtage">Nbr Etage</label>
-                <input type="text" id="nbrEtage" class="input" value="<?=isset($pavillons[0]->nbr_etage) ? $pavillons[0]->nbr_etage : "" ?>" name="nbr_etage" placeholder="Enter Nbr Etage">
-                <small>Error message</small>
-                <p style="color: #dc3545;margin-top: 2%;"><?=isset($arrayError['nbr_etage'])?$arrayError['nbr_etage']: ""?></p>
-            </div>
+                <div class="form-control">
+                    <label for="nomPavillon">Nom Pavillon</label>
+                    <input type="text" id="nomPavillon" class="input" value="<?=isset($pavillons[0]->nom_pavillon) ? $pavillons[0]->nom_pavillon : "" ?>" name="nom_pavillon" placeholder="Enter Nom Pavillon">
+                    <small>Error message</small>
+                    <p style="color: #dc3545;margin-top: 2%;"><?=isset($arrayError['nom_pavillon'])?$arrayError['nom_pavillon']: ""?></p>
+                </div>
+                <div class="form-control" >
+                    <label for="nbrEtage">Nbr Etage</label>
+                    <input type="text" id="nbrEtage" class="input" value="<?=isset($pavillons[0]->nbr_etage) ? $pavillons[0]->nbr_etage : "" ?>" name="nbr_etage" placeholder="Enter Nbr Etage">
+                    <small>Error message</small>
+                    <p style="color: #dc3545;margin-top: 2%;"><?=isset($arrayError['nbr_etage'])?$arrayError['nbr_etage']: ""?></p>
+                </div>
             <div class="form-control" >
                 <label for="radio">Chambre(facultatif)</label>
                     <select onclick="handleClick(this);" name="select" id="choice">

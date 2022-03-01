@@ -89,30 +89,32 @@ ul li ul li {
   </div>
 </nav>
  -->
- <nav class="navbar">
-     <!-- LOGO -->
-     <!-- NAVIGATION MENU -->
-     <ul class="nav-links">
-       <!-- USING CHECKBOX HACK -->
-       <input type="checkbox" id="checkbox_toggle" />
-       <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-       <!-- NAVIGATION MENUS -->
-       <div class="menu">
-         <li><a href="/">Logo</a></li>
-         <li class="services">
-           <a href="<?=WEBROOT."etudiant/showEtudiantBoursier"?>" style="cursor: pointer;" >Etudiant</a>
-         </li>
-         <li><a href="<?=WEBROOT."pavillon/showPavillon"?>">Pavillon</a></li>
-         <li><a href="<?=WEBROOT."chambre/showChambre"?>">Chambre</a></li>
-       </div>
-     </ul>
-     <!-- <div class="logo">
-        <a href="http://">  Deconnexion</a>
-      </div> -->
-     <form action="<?=WEBROOT."security/logout"?>" method="POST">
-        <button type="submit" class="button">
-          Deconnexion
-        </button>
-     </form>
+<?php
 
-   </nav>
+                                                                                    use App\Core\Request;
+  $request = new Request;
+  $url = $request->getUrl();
+ // var_dump($url[1]);
+?>
+<div class="topnav" id="myTopnav">
+  <a href="<?=WEBROOT."etudiant/showEtudiantBoursier"?>" class="<?=$url[1]=='showEtudiantBoursier' ? 'active' : "" ?>">Etudiant</a>
+  <a href="<?=WEBROOT."pavillon/showPavillon"?>" class="<?=$url[1]=='showPavillon' ? 'active' : "" ?>">Pavillon</a>
+  <a href="<?=WEBROOT."chambre/showChambre"?>" class="<?=$url[1]=='showChambre' ? 'active' : "" ?>" >Chambre</a>
+  <a href="<?=WEBROOT."security/logout"?>" class="logOut" >
+    <i class='fas fa-sign-out-alt'></i>
+    Deconnexion
+  </a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+<script>
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+</script>

@@ -111,13 +111,13 @@
                 </div>
             </form>
          <div class="card">
-               <div class="float2">
+               <div class="row">
                     <a href="<?=WEBROOT."chambre/showChambre"?>" class="link">
                         <i class="fa fa-arrow-left ml-2" aria-hidden="true"></i>
                         Liste Chambres
                     </a>
                </div>
-               <div style="overflow-x:auto;">
+        <div style="overflow-x:auto;">
              <table >
                  <thead>
                     <tr>
@@ -167,7 +167,7 @@
                    
                     
             </table>
-            </div>
+        </div>
          </div>
              <div class="p <?= isset($post['button']) ? 'd-none' : "" ?>">
                 <div class="pagination">
