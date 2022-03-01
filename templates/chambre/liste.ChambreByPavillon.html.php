@@ -123,6 +123,7 @@
                     </a>
                  
                </div>
+               <div style="overflow-x:auto;">
              <table >
                  <thead>
                     <tr>
@@ -169,6 +170,7 @@
                    
                     
             </table>
+            </div>
          </div>
 
             <div class="p">

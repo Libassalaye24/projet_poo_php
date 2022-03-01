@@ -31,6 +31,7 @@
            </div>
     <div class="column mt-5">
     <div class="card shadow">
+    <div style="overflow-x:auto;">
         <table class="table table-borderless">
             <thead>
                 <tr class="border border-secondary">
@@ -56,6 +57,7 @@
 
             </tbody>
         </table>
+    </div>
     </div>
         <nav aria-label="...">
             <ul class="pagination pagination-lg justify-content-center  mt-4">

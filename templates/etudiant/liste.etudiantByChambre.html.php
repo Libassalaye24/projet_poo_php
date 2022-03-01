@@ -84,6 +84,7 @@
      <div class="column">
          <div class="card">
                 <h4 style="margin-bottom: 8px;">Liste des Etudiants Par Chambre</h4>
+                <div style="overflow-x:auto;">
              <table>
                  <thead>
                     <tr>
@@ -117,6 +118,7 @@
                 <?php endif; ?>  
                     
             </table>
+            </div>
          </div>
      </div>
  </div>
