@@ -40,11 +40,14 @@ class ChambreController extends AbstractController
   
     public function showChambre()
     {
-        $get = $this->request->query();
+        $url = $this->request->query();
+        if (isset($url[0])) {
+            $get = $this->request->formatQuery($url[0]);
+        }
         $e='non_archiver';
         $pavillon = $this->pavillon->findAll();
         $chambres = $this->chambre->findChambreArchiver($e);
-        if (isset($get[1])) {
+        if (isset($get)) {
             $page=$get[1];
         }else {
             $page=1;
@@ -68,12 +71,15 @@ class ChambreController extends AbstractController
 
     public function showArchiveChambre()
     {
-        $get = $this->request->query();
+        $url = $this->request->query();
+        if (isset($url[0])) {
+            $get = $this->request->formatQuery($url[0]);
+        }
         $etat='archiver';
         $post = $this->request->request();
         $pavillon = $this->pavillon->findAll();
         $chambres = $this->chambre->findChambreArchiver($etat);
-        if (isset($get[1])) {
+        if (isset($get)) {
             $page=$get[1];
         }else {
             $page=1;
@@ -100,7 +106,10 @@ class ChambreController extends AbstractController
 
     public function showUpdateChambre()
     {
-        $id=$this->request->query();
+        $url = $this->request->query();
+        if (isset($url[0])) {
+            $id = $this->request->formatQuery($url[0]);
+        }
         $typeChambres=$this->typeChambreRepository->findAll();
         $chamTypePav=$this->chambre->findChambreType((int)$id[1]);
         $chamPavillon=$this->chambre->findChambrePavillon((int)$id[1]);
@@ -109,13 +118,19 @@ class ChambreController extends AbstractController
     }
     public function showChambreByPavillon()
     {
-        $id=$this->request->query();
+        $url=$this->request->query();
+        $id = $this->request->formatQuery($url[0]);
+        if ($id[0]!='idPavillon') {
+           $pavvv = new PavillonController();
+           $pavvv->redirect('pavillon/showPavillon');
+        }
+       
         $chambres = $this->chambre->findChambreByPavillon((int)$id[1]);
         $totalRecords = count((array)$chambres);
-        //$get = $id[3];
         $total_page = $this->validator->total_page($totalRecords,PAR_PAGE);
-            if (isset($id[3])) {
-                $page=$id[3];
+            if (isset($url[1])) {
+                $get = $this->request->formatQuery($url[1]);
+                $page=$get[1];
             }else {
                 $page=1;
             }

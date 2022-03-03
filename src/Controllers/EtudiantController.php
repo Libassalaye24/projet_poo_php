@@ -60,14 +60,18 @@ class EtudiantController extends AbstractController
     }
     public function showEtudiantBoursier()
     {
-        $get = $this->request->query();
+        //$get = $this->request->query();
+        $url = $this->request->query();
+        if (isset($url[0])) {
+            $get = $this->request->formatQuery($url[0]);
+        }
         $EtuAll=$this->etudiant->findAll();
         $EB = $this->eBs->findEtuBoursier();
         $ENB=$this->eNb->findAll();
         $etudiant=$EtuAll;
         $totalRecords = count($etudiant);
         $total_page = $this->validator->total_page($totalRecords,PAR_PAGE);
-        if (isset($get[1])) {
+        if (isset($get)) {
             $page=$get[1];
         }else {
             $page=1;
@@ -77,18 +81,21 @@ class EtudiantController extends AbstractController
         
         if ($this->request->isPost()) {
             extract($this->request->request());
-            $EBbyTypeBourse = $this->eBs->findEtuByTypeBourse($bourse);
             $EBL = $this->eBl->findEboursierLoge();
             if ($type=='boursier') {
                 $etudiant = $EB;
-                if ($bourse=='bourse_entier' || $bourse=='demi_bourse') {
-                    $etudiant = $EBbyTypeBourse;
+                if ($bourse) {
+                   
+                    $etudiant = $this->eBs->findEtuByTypeBourse($bourse);
                     
                 }
             }elseif ($type=='nonboursier') {
                 $etudiant = $ENB;
             }elseif ($type=='loge') {
                 $etudiant= $EBL;
+                if ($bourse) {
+                    $etudiant = $this->eBs->findEtuLogeByTypeBourse($bourse);
+                }
             }
            
             
@@ -125,7 +132,10 @@ class EtudiantController extends AbstractController
    
     public function showEtudiantByChambre()
     {
-        $id=$this->request->query();
+        $url=$this->request->query();
+        if (isset($url[0])) {
+            $id = $this->request->formatQuery($url[0]); 
+        }
         $etudiantChambres=$this->eBl->findEtudiantByIdChambre((int)$id[1]);
         //var_dump($etudiantChambres); die;
         $this->render("etudiant/liste.etudiantByChambre.html.php",['etudiantChambres'=>$etudiantChambres]);

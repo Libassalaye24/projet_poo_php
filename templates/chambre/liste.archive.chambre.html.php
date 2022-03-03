@@ -143,13 +143,13 @@
                             <td class="thbottom"><?=$chambre->nom_pavillon?></td>
                         <?php endif; ?>
                         <td class="thbottom">
-                        <a href="<?=WEBROOT.'etudiant/showEtudiantByChambre/idChambre/'.$chambre->id_chambre?>" class="btn">
+                        <a href="<?=WEBROOT.'etudiant/showEtudiantByChambre/idChambre='.$chambre->id_chambre?>" class="btn">
                                 <i class="fas fa-plus "></i>
                                 Voir
                             </a>
                         </td>
                         <td class="thbottom action">
-                            <a href="<?=WEBROOT.'chambre/showUpdateChambre/idChambre/'.$chambre->id_chambre?>" class="btnUpdate">
+                            <a href="<?=WEBROOT.'chambre/showUpdateChambre/idChambre='.$chambre->id_chambre?>" class="btnUpdate">
                                 <i class="fas fa-edit edit"></i>
                                 Update
                             </a>
@@ -172,17 +172,17 @@
              <div class="p <?= isset($post['button']) ? 'd-none' : "" ?>">
                 <div class="pagination">
                     <?php if($page>=2): ?>
-                    <a  href="<?=WEBROOT.'chambre/showArchiveChambre/&page=/'.$page-1?>" class="laquo">&laquo;</a>
+                    <a  href="<?=WEBROOT.'chambre/showArchiveChambre/page='.$page-1?>" class="laquo">&laquo;</a>
                    <?php endif; ?>
                     <?php for($i=1;$i<=$total_page;$i++): ?>
                         <?php if($i==$page): ?>
-                         <a class="active" href="<?=WEBROOT.'chambre/showArchiveChambre/&page=/'.$i?>"><?=$i?></a>
+                         <a class="active" href="<?=WEBROOT.'chambre/showArchiveChambre/page='.$i?>"><?=$i?></a>
                          <?php else: ?>
-                        <a class="a" href="<?=WEBROOT.'chambre/showArchiveChambre/&page=/'.$i?>"><?=$i?></a>
+                        <a class="a" href="<?=WEBROOT.'chambre/showArchiveChambre/page='.$i?>"><?=$i?></a>
                          <?php endif; ?>
                     <?php endfor; ?>
                     <?php if($page<$total_page): ?>
-                    <a href="<?=WEBROOT.'chambre/showArchiveChambre/&page=/'.$page+1?>" class="laquo">&raquo;</a>
+                    <a href="<?=WEBROOT.'chambre/showArchiveChambre/page='.$page+1?>" class="laquo">&raquo;</a>
                     <?php endif; ?>
                 </div>
             </div>

@@ -29,7 +29,7 @@
                         <td class="thbottom"><?=$pavillon->num_pavillon?></td>
                         <td class="thbottom"><?=$pavillon->nbr_etage?></td>
                         <td class="thbottom">
-                        <a href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$pavillon->id_pavillon?>" class="btn">
+                        <a href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon='.$pavillon->id_pavillon?>" class="btn">
                                 <i class="fas fa-plus "></i>
                                 Voir
                             </a>
@@ -53,17 +53,17 @@
              <div class="p">
                 <div class="pagination">
                     <?php if($page>=2): ?>
-                    <a  href="<?=WEBROOT.'pavillon/showPavillon/page/'.$page-1?>" class="laquo">&laquo;</a>
+                    <a  href="<?=WEBROOT.'pavillon/showPavillon/page='.$page-1?>" class="laquo">&laquo;</a>
                    <?php endif; ?>
                     <?php for($i=1;$i<=$total_page;$i++): ?>
                         <?php if($i==$page): ?>
-                         <a class="active" href="<?=WEBROOT.'pavillon/showPavillon/page/'.$i?>"><?=$i?></a>
+                         <a class="active" href="<?=WEBROOT.'pavillon/showPavillon/page='.$i?>"><?=$i?></a>
                          <?php else: ?>
-                        <a class="a" href="<?=WEBROOT.'pavillon/showPavillon/page/'.$i?>"><?=$i?></a>
+                        <a class="a" href="<?=WEBROOT.'pavillon/showPavillon/page='.$i?>"><?=$i?></a>
                          <?php endif; ?>
                     <?php endfor; ?>
                     <?php if($page<$total_page): ?>
-                    <a href="<?=WEBROOT.'pavillon/showPavillon/page/'.$page+1?>" class="laquo">&raquo;</a>
+                    <a href="<?=WEBROOT.'pavillon/showPavillon/page='.$page+1?>" class="laquo">&raquo;</a>
                     <?php endif; ?>
                 </div>
             </div>

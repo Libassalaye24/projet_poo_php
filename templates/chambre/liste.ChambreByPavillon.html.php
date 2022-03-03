@@ -176,17 +176,17 @@
             <div class="p">
                 <div class="pagination">
                     <?php if($page>=2): ?>
-                    <a  href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$id[1].'/&page=/'.$page-1?>" class="laquo">&laquo;</a>
+                    <a  href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon='.$id[1].'/page='.$page-1?>" class="laquo">&laquo;</a>
                    <?php endif; ?>
                     <?php for($i=1;$i<=$total_page;$i++): ?>
                         <?php if($i==$page): ?>
-                         <a class="active" href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$id[1].'/&page=/'.$i?>"><?=$i?></a>
+                         <a class="active" href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon='.$id[1].'/page='.$i?>"><?=$i?></a>
                          <?php else: ?>
-                        <a class="a" href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$id[1].'/&page=/'.$i?>"><?=$i?></a>
+                        <a class="a" href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon='.$id[1].'/page='.$i?>"><?=$i?></a>
                          <?php endif; ?>
                     <?php endfor; ?>
                     <?php if($page<$total_page): ?>
-                    <a href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon/'.$id[1].'/&page=/'.$page+1?>" class="laquo">&raquo;</a>
+                    <a href="<?=WEBROOT.'chambre/showChambreByPavillon/idPavillon='.$id[1].'/page='.$page+1?>" class="laquo">&raquo;</a>
                     <?php endif; ?>
                 </div>
             </div>

@@ -265,6 +265,32 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   background-color: #dc3545;
 }
 
+@media screen and (max-width: 600px) {
+  /* line 118, ../sass/partials/_cadreshadow.scss */
+  table {
+    font-size: 15px;
+  }
+
+  /* line 122, ../sass/partials/_cadreshadow.scss */
+  .btn-valide {
+    margin-top: 40%;
+  }
+
+  /* line 125, ../sass/partials/_cadreshadow.scss */
+  .form-inline {
+    font-size: 15px;
+    margin-right: 2%;
+  }
+
+  /* line 129, ../sass/partials/_cadreshadow.scss */
+  .selectCheck {
+    margin-left: 2%;
+  }
+  /* line 131, ../sass/partials/_cadreshadow.scss */
+  .selectCheck select {
+    margin-top: 5%;
+  }
+}
 /* table{
     border: #152032 2px solid ;
     thead{

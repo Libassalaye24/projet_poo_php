@@ -114,7 +114,26 @@
   
 
 }
-
+@media screen and (max-width: 600px) {
+    table{
+        font-size: 15px;
+        
+    }
+    .btn-valide{
+        margin-top: 40%;
+    }
+    .form-inline{
+        font-size: 15px;
+        margin-right: 2%;
+    }
+    .selectCheck{
+        margin-left: 2%;
+        select{
+            margin-top: 5%;
+        }
+      
+    }
+}
 /* table{
     border: #152032 2px solid ;
     thead{

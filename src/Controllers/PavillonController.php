@@ -36,18 +36,19 @@ class PavillonController extends AbstractController
     }
     public function showPavillon()
     {
-        //$rq = new Request;
-            $get = $this->request->query();
+            $url = $this->request->query();
+            if (isset($url[0])) {
+                $get  = $this->request->formatQuery($url[0]);
+            }
             $pavillons=$this->pavillon->findAll();
-            $nbrPage = 2;
             $totalRecords = count((array)$pavillons);
             $total_page = $this->validator->total_page($totalRecords,PAR_PAGE);
-            if (isset($get[1])) {
+            if (isset($get) && $get[0]=='page') {
                 $page=$get[1];
             }else {
                 $page=1;
             }
-            $start_from= $this->validator->start_from($page,$nbrPage);
+            $start_from= $this->validator->start_from($page,PAR_PAGE);
             $pavillons = $this->pavillon->findAllLimit($start_from,PAR_PAGE);
             $this->render("pavillon/liste.pavillon.html.php",['pavillons'=>$pavillons,'total_page'=>$total_page,'page'=>$page]);
         

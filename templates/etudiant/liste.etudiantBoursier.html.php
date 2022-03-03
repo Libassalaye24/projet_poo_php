@@ -5,16 +5,16 @@
                 <div class="form-filtre" >
                     <div class="selectCheck">
                         <label for="">Type</label>
-                        <select name="type" id="">
+                        <select id="type"  name="type" >
                             <option value="">Choisir</option>   
                             <option <?=(isset($post['type']) && $post['type']=='boursier') ? 'selected' : "" ?> value="boursier">Boursier N loge</option>
                             <option <?=(isset($post['type']) && $post['type']=='loge') ? 'selected' : "" ?> value="loge">Boursier Loge</option>
-                            <option <?=(isset($post['type']) && $post['type']=='nonboursier') ? 'selected' : "" ?> value="nonboursier">Non Boursier</option>
+                            <option <?=(isset($post['type']) && $post['type']=='nonboursier') ? 'selected' : "" ?> onclick="myFunction()" value="nonboursier">Non Boursier</option>
                         </select>
                     </div>
-                    <div class="selectCheck">
-                        <label for="">Bourse</label>
-                        <select name="bourse" id="">
+                    <div id="selectCheck" class="selectCheck">
+                        <label  for="">Bourse</label>
+                        <select name="bourse" >
                         <option value="">Choisir</option>
                             <option <?=(isset($post['bourse']) && $post['bourse']=='bourse_entier') ? 'selected' : "" ?> value="bourse_entier">Entiere</option>
                             <option <?=(isset($post['bourse']) && $post['bourse']=='demi_bourse') ? 'selected' : "" ?> value="demi_bourse">Demi</option>
@@ -84,19 +84,25 @@
          <div  class="p <?= isset($post['button']) ? 'd-none' : "" ?>">
                 <div class="pagination">
                     <?php if($page>=2): ?>
-                    <a  href="<?=WEBROOT.'etudiant/showEtudiantBoursier/page/'.$page-1?>" class="laquo">&laquo;</a>
+                    <a  href="<?=WEBROOT.'etudiant/showEtudiantBoursier/page='.$page-1?>" class="laquo">&laquo;</a>
                    <?php endif; ?>
                     <?php for($i=1;$i<=$total_page;$i++): ?>
                         <?php if($i==$page): ?>
-                         <a class="active" href="<?=WEBROOT.'etudiant/showEtudiantBoursier/page/'.$i?>"><?=$i?></a>
+                         <a class="active" href="<?=WEBROOT.'etudiant/showEtudiantBoursier/page='.$i?>"><?=$i?></a>
                          <?php else: ?>
-                        <a class="a" href="<?=WEBROOT.'etudiant/showEtudiantBoursier/page/'.$i?>"><?=$i?></a>
+                        <a class="a" href="<?=WEBROOT.'etudiant/showEtudiantBoursier/page='.$i?>"><?=$i?></a>
                          <?php endif; ?>
                     <?php endfor; ?>
                     <?php if($page<$total_page): ?>
-                    <a href="<?=WEBROOT.'etudiant/showEtudiantBoursier/page/'.$page+1?>" class="laquo">&raquo;</a>
+                    <a href="<?=WEBROOT.'etudiant/showEtudiantBoursier/page='.$page+1?>" class="laquo">&raquo;</a>
                     <?php endif; ?>
                 </div>
             </div>
      </div>
  </div>
+ <script>
+function myFunction() {
+  document.getElementById("selectCheck").style.display = 'none';
+}
+</script>
+
